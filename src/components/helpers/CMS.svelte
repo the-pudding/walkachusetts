@@ -30,3 +30,6 @@
 		{/if}
 	</section>
 {/each}
+
+<style>
+</style>

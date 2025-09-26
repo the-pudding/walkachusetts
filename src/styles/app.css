@@ -39,7 +39,7 @@
 	/* "1" second duration */
 	--1s: 1ms;
 	
-	--col-width: 540px;
+	--col-width: 720px;
 	
 }
 
@@ -102,18 +102,42 @@ span.strike {
 	text-decoration: line-through;
 }
 
+.sidebar {
+	display: none;
+}
+
+
 @media screen and (min-width: 480px) {
 	p {
-		font-size: 18px;
+		font-size: 17px;
 	}
 }
 
-@media screen and (min-width: 600px) {
-	main {
-		--col-width: 600px;
+@media screen and (min-width: 800px) {
+	.linear {
+		width: 50%;
+		padding-right: 1rem;
 	}
 
-	p {
-		font-size: 18px;
+	.sidebar {
+		display: block;
+		width: 50%;
+		padding-left: 1rem;
 	}
+
+	.linear p {
+		font-size: 17px;
+		text-align: justify;
+		margin: 1.5em 0;
+	}
+	
+	.linear figure:not(.illo) {
+		display: none !important;
+	}
+
+	/* .sidebar figure {
+		max-width: 300px !important;
+	} */
 }
+
+

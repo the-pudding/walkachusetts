@@ -1,9 +1,10 @@
 <script>
 	const { src, alt, caption } = $props();
 	const video = src.endsWith(".mp4");
+	const illo = src.endsWith(".png");
 </script>
 
-<figure class:video>
+<figure class:video class:illo>
 	{#if video}
 		<video autoplay loop muted playsinline>
 			<source {src} type="video/mp4" />
