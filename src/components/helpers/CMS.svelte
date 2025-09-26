@@ -18,7 +18,7 @@
 				{#if C}
 					<C {...value} />
 				{:else if type === "text"}
-					<p>{@html value}</p>
+					<p>{@html value.replace("\\", "")}</p>
 				{:else if isString}
 					<svelte:element this={type}>
 						{@html value}
