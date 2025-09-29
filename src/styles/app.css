@@ -127,17 +127,11 @@ span.strike {
 
 	.linear p {
 		font-size: 17px;
-		text-align: justify;
+		/* text-align: justify; */
 		margin: 1.5em 0;
 	}
 	
 	.linear figure:not(.illo) {
 		display: none !important;
 	}
-
-	/* .sidebar figure {
-		max-width: 300px !important;
-	} */
 }
-
-
