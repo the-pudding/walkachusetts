@@ -2,13 +2,14 @@
 	const { src, alt, caption, top, bottom } = $props();
 	const video = src.endsWith(".mp4");
 	const illo = src.endsWith(".png");
+	const mini = src.includes("mini-");
 
 	const styles = `${top ? `margin-top: ${top};` : ""} ${
 		bottom ? `margin-bottom: ${bottom};` : ""
 	}`;
 </script>
 
-<figure class:video class:illo style={styles}>
+<figure class:video class:illo class:mini style={styles}>
 	<!-- {#if caption}
 		<figcaption>{@html caption}</figcaption>
 	{/if} -->
@@ -31,7 +32,10 @@
 		max-width: 360px;
 		margin: 2em auto;
 		position: relative;
-		padding: 1em;
+	}
+
+	img {
+		width: 100%;
 	}
 
 	img.frame {
