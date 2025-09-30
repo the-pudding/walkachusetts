@@ -97,6 +97,24 @@ span.strike {
 }
 
 
+h2 {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 4rem;
+	font-size: var(--28px);
+}
+
+h2 span {
+	display: inline-flex;
+	line-height: 1;
+	font-size: var(--18px);
+	background: var(--color-fg);
+	color: var(--color-bg);
+	padding: 0.5em;
+	text-transform: uppercase;
+}
+
 @media screen and (min-width: 480px) {
 	p, h3 {
 		font-size: 17px;
@@ -126,20 +144,8 @@ span.strike {
 	}
 }
 
-h2 {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	margin-top: 4rem;
-	font-size: var(--28px);
-}
-
-h2 span {
-	display: inline-flex;
-	line-height: 1;
-	font-size: var(--18px);
-	background: var(--color-fg);
-	color: var(--color-bg);
-	padding: 0.5em;
-	text-transform: uppercase;
+@media screen and (max-width: 800px) {
+	.linear figure {
+		margin-top: 2rem !important;
+	}
 }
