@@ -4,8 +4,8 @@
 	const illo = src.endsWith(".png");
 	const mini = src.includes("mini-");
 
-	const styles = `${top ? `margin-top: ${top};` : ""} ${
-		bottom ? `margin-bottom: ${bottom};` : ""
+	const styles = `${top ? `margin-top: ${top}rem;` : ""} ${
+		bottom ? `margin-bottom: ${bottom}rem;` : ""
 	}`;
 </script>
 
