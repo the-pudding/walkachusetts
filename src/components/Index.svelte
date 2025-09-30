@@ -3,21 +3,63 @@
 	import Footer from "$components/Footer.svelte";
 	import CMS from "$components/helpers/CMS.svelte";
 	import Figure from "$components/Figure.svelte";
+	import Abridged from "$components/Abridged.svelte";
 	import Sidebar from "$components/Sidebar.svelte";
 
 	const copy = getContext("copy");
-	const { body } = copy;
+	const data = getContext("data");
 
 	const components = {
-		Figure
+		Figure,
+		Abridged
 	};
 
-	const figures = body[0].content.filter(
-		(d) => d.type === "Figure" && !d.value.src.endsWith(".png")
-	);
+	const body = [
+		{
+			...copy.body[0],
+			content: copy.body[0].content.map((d) => ({
+				...d,
+				type:
+					d.type === "figure"
+						? "Figure"
+						: d.type === "abridged"
+							? "Abridged"
+							: d.type,
+				value:
+					d.type === "figure"
+						? lookupFigure(d.value)
+						: d.type === "abridged"
+							? { text: d.value }
+							: d.value
+			}))
+		}
+	];
+
+	const figures = data.media
+		.filter((d) => d.sidebar)
+		.map((d) => ({
+			type: "Figure",
+			value: lookupFigure(d.src, true)
+		}));
+
+	let tldr = $state(false);
+
+	function lookupFigure(src, margin) {
+		// find match to get alt
+		const match = data.media.find((m) => m.src === src);
+		return {
+			src: `assets/${src}`,
+			alt: match ? match.alt : "",
+			top: margin && match ? match.top : ""
+		};
+	}
+
+	function onToggle() {
+		tldr = !tldr;
+	}
 </script>
 
-<div class="c">
+<div class="c" class:tldr>
 	<div class="linear">
 		<div class="hero">
 			<h1>{copy.meta.title}</h1>
@@ -26,6 +68,7 @@
 		<CMS {body} {components} />
 	</div>
 	<div class="sidebar"><Sidebar {figures} {components} /></div>
+	<button onclick={onToggle}>TLDR</button>
 </div>
 
 <svelte:boundary onerror={(e) => console.error(e)}>
@@ -58,5 +101,25 @@
 		font-weight: bold;
 		margin: 0;
 		font-size: var(--28px);
+	}
+
+	button {
+		position: fixed;
+		top: 0;
+		left: 0;
+		display: none;
+	}
+
+	.tldr {
+		max-width: none !important;
+	}
+
+	.tldr .sidebar {
+		display: none;
+	}
+
+	.tldr .linear {
+		width: 100%;
+		padding: 0;
 	}
 </style>

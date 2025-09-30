@@ -92,6 +92,16 @@ span.strike {
 	text-decoration: line-through;
 }
 
+.linear {
+	max-width: 360px;
+	padding: 0 1rem;
+	margin: 0 auto;
+}
+
+.linear p.abridged {
+	display: none;
+}
+
 .sidebar {
 	display: none;
 }
@@ -116,13 +126,27 @@ h2 span {
 	font-family: var(--sans);
 }
 
+.tldr p {
+	display: none;
+}
+
+.tldr p.abridged, .tldr figure {
+	display: block;
+	width: 25%;
+}
+
+.tldr #story {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 @media screen and (min-width: 480px) {
 	p, h3 {
 		font-size: 17px;
 	}
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 736px) {
 	.linear {
 		width: 50%;
 		padding-right: 1rem;
@@ -136,17 +160,30 @@ h2 span {
 
 	.linear p {
 		font-size: 17px;
-		/* text-align: justify; */
 		margin: 1.5em 0;
 	}
 	
 	.linear figure:not(.illo) {
 		display: none !important;
 	}
+
+	.tldr .linear figure:not(.illo) {
+		display: block !important;
+		margin: 0 !important;
+	}
+
+	.tldr .linear figure:not(.illo) .frame {
+		display: none;
+	}
+
+	.tldr .illo {
+		display: none;
+	}
 }
 
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
 	.linear figure {
 		margin-top: 2rem !important;
 	}
 }
+ */
