@@ -1,17 +1,23 @@
 <script>
+	import { ascending } from "d3";
 	import { getContext } from "svelte";
 	import Footer from "$components/Footer.svelte";
 	import CMS from "$components/helpers/CMS.svelte";
 	import Figure from "$components/Figure.svelte";
 	import Abridged from "$components/Abridged.svelte";
 	import Sidebar from "$components/Sidebar.svelte";
+	import Tldr from "$components/Tldr.svelte";
+	import Jukebox from "$components/Jukebox.svelte";
+	import Bit from "$components/Bit.svelte";
 
 	const copy = getContext("copy");
 	const data = getContext("data");
 
 	const components = {
 		Figure,
-		Abridged
+		Abridged,
+		Jukebox,
+		Bit
 	};
 
 	const body = [
@@ -35,12 +41,43 @@
 		}
 	];
 
-	const figures = data.media
+	const sidebarFigures = data.media
 		.filter((d) => d.sidebar)
 		.map((d) => ({
 			type: "Figure",
 			value: lookupFigure(d.src, true)
 		}));
+
+	sidebarFigures.sort((a, b) =>
+		ascending(+a.value.sidebar_order, +b.value.sidebar_order)
+	);
+
+	const tldrFigures = data.media
+		.map((d) => ({
+			type: "Figure",
+			value: lookupFigure(d.src)
+		}))
+		.filter((d) => +d.value.tldr_order > 0);
+
+	tldrFigures.sort((a, b) =>
+		ascending(+a.value.tldr_order, +b.value.tldr_order)
+	);
+
+	const abridgedCopy = copy.body[0].content
+		.filter((d) => d.type === "abridged")
+		.map((d, i) => ({
+			type: "Abridged",
+			value: { text: d.value }
+		}));
+
+	// insert abridged copy into tldr figures at intervals (find .day that matches of abridgeCopy index, and insert there)
+	abridgedCopy.forEach((d, i) => {
+		const dayIndex = tldrFigures.findIndex((f) => +f.value.day === i);
+		// insert abridged copy before dayIndex
+		if (dayIndex !== -1) {
+			tldrFigures.splice(dayIndex, 0, d);
+		}
+	});
 
 	let tldr = $state(false);
 
@@ -49,8 +86,11 @@
 		const match = data.media.find((m) => m.src === src);
 		return {
 			src: `assets/${src}`,
-			alt: match ? match.alt : "",
-			top: margin && match ? match.top : ""
+			alt: match?.alt,
+			top: margin && match ? match.top : "",
+			sidebar_order: match?.sidebar_order,
+			tldr_order: match?.tldr_order,
+			day: match?.day
 		};
 	}
 
@@ -59,7 +99,7 @@
 	}
 </script>
 
-<div class="c" class:tldr>
+<div class="classic" class:visible={!tldr}>
 	<div class="linear">
 		<div class="hero">
 			<h1>{copy.meta.title}</h1>
@@ -67,8 +107,12 @@
 		</div>
 		<CMS {body} {components} />
 	</div>
-	<div class="sidebar"><Sidebar {figures} {components} /></div>
+	<div class="sidebar"><Sidebar figures={sidebarFigures} {components} /></div>
 	<button onclick={onToggle}>TLDR</button>
+</div>
+
+<div class="tldr" class:visible={tldr}>
+	<Tldr figures={tldrFigures} {components} />
 </div>
 
 <svelte:boundary onerror={(e) => console.error(e)}>
@@ -76,10 +120,14 @@
 </svelte:boundary>
 
 <style>
-	.c {
+	.classic {
 		max-width: var(--col-width);
 		margin: 0 auto;
 		padding: 0 1rem;
+		display: none;
+	}
+
+	.classic.visible {
 		display: flex;
 	}
 
@@ -112,14 +160,12 @@
 
 	.tldr {
 		max-width: none !important;
-	}
-
-	.tldr .sidebar {
 		display: none;
 	}
 
-	.tldr .linear {
-		width: 100%;
-		padding: 0;
+	.tldr.visible {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0.5rem;
 	}
 </style>

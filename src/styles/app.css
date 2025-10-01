@@ -29,9 +29,9 @@
 	--color-mark: var(--color-yellow);
 	--color-selection: var(--color-gray-300);
 	--color-border: var(--color-gray-300);
-	--color-button-bg: var(--color-gray-300);
-	--color-button-fg: var(--color-gray-900);
-	--color-button-hover: var(--color-gray-400);
+	--color-button-bg: var(--color-gray-100);
+	--color-button-fg: var(--color-fg);
+	--color-button-hover: var(--color-gray-300);
 	--color-input-bg: var(--color-gray-50);
 	--color-input-fg: var(--color-gray-900);
 	--color-placeholder: var(--color-gray-500);
@@ -82,6 +82,11 @@ svg {
 	height: auto;
 }
 
+button {
+	border-radius: 4px;
+	border: 2px solid var(--color-fg);
+}
+
 p, h3 {
 	line-height: 1.75;
 	font-size: 16px;
@@ -126,18 +131,16 @@ h2 span {
 	font-family: var(--sans);
 }
 
-.tldr p {
-	display: none;
-}
-
 .tldr p.abridged, .tldr figure {
 	display: block;
-	width: 25%;
+	width: 100% !important;
+	margin: 0 !important;
+	max-width: none !important;
+	padding: 0 !important;
 }
 
-.tldr #story {
-	display: flex;
-	flex-wrap: wrap;
+.tldr figure .frame {
+	display: none;
 }
 
 @media screen and (min-width: 480px) {
