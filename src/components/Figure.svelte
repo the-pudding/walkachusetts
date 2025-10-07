@@ -65,8 +65,8 @@
 			position: relative;
 			left: 50%;
 			max-width: none;
-			width: 1000px;
-			margin: 4em auto;
+			width: 640px;
+			margin: 2em auto;
 			transform: translate(-50%, 0);
 		}
 	}
