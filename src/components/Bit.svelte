@@ -12,6 +12,6 @@
 	p {
 		font-size: var(--14px);
 		font-family: var(--sans);
-		margin: 0.5rem 0;
+		margin: 0.5rem 0 !important;
 	}
 </style>

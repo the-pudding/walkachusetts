@@ -1,15 +1,21 @@
 <script>
-	const { src, alt, caption, top, bottom } = $props();
+	const { src, alt, caption, side, top, bottom, align } = $props();
 	const video = src.endsWith(".mp4");
 	const illo = src.endsWith(".png");
 	const mini = src.includes("mini-");
+	const feature = src.includes("feature");
 
-	const styles = `${top ? `margin-top: ${top}rem;` : ""} ${
-		bottom ? `margin-bottom: ${bottom}rem;` : ""
-	}`;
+	const style = `${top ? `top: ${top}px;` : ""}${bottom ? `bottom: ${bottom}px;` : ""}`;
 </script>
 
-<figure class:video class:illo class:mini style={styles}>
+<figure
+	class:feature
+	class:video
+	class:illo
+	class:mini
+	class="{side} {align}"
+	{style}
+>
 	<!-- {#if caption}
 		<figcaption>{@html caption}</figcaption>
 	{/if} -->
@@ -32,6 +38,7 @@
 		max-width: 360px;
 		margin: 2em auto;
 		position: relative;
+		padding: 8px;
 	}
 
 	img {
@@ -46,5 +53,21 @@
 		height: 100%;
 		pointer-events: none;
 		user-select: none;
+	}
+
+	@media screen and (min-width: 1000px) {
+		figure {
+			padding: 6px 8px;
+			margin: 0;
+		}
+
+		figure.feature {
+			position: relative;
+			left: 50%;
+			max-width: none;
+			width: 1000px;
+			margin: 4em auto;
+			transform: translate(-50%, 0);
+		}
 	}
 </style>

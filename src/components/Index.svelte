@@ -3,6 +3,7 @@
 	import { getContext } from "svelte";
 	import Footer from "$components/Footer.svelte";
 	import CMS from "$components/helpers/CMS.svelte";
+	import UI from "$components/UI.svelte";
 	import Figure from "$components/Figure.svelte";
 	import Abridged from "$components/Abridged.svelte";
 	import Sidebar from "$components/Sidebar.svelte";
@@ -41,17 +42,6 @@
 		}
 	];
 
-	const sidebarFigures = data.media
-		.filter((d) => d.sidebar)
-		.map((d) => ({
-			type: "Figure",
-			value: lookupFigure(d.src, true)
-		}));
-
-	sidebarFigures.sort((a, b) =>
-		ascending(+a.value.sidebar_order, +b.value.sidebar_order)
-	);
-
 	const tldrFigures = data.media
 		.map((d) => ({
 			type: "Figure",
@@ -88,7 +78,6 @@
 			src: `assets/${src}`,
 			alt: match?.alt,
 			top: margin && match ? match.top : "",
-			sidebar_order: match?.sidebar_order,
 			tldr_order: match?.tldr_order,
 			day: match?.day
 		};
@@ -101,14 +90,13 @@
 
 <div class="classic" class:visible={!tldr}>
 	<div class="linear">
+		<UI></UI>
 		<div class="hero">
 			<h1>{copy.meta.title}</h1>
 			<p>{copy.meta.description}</p>
 		</div>
 		<CMS {body} {components} />
 	</div>
-	<div class="sidebar"><Sidebar figures={sidebarFigures} {components} /></div>
-	<button onclick={onToggle}>TLDR</button>
 </div>
 
 <div class="tldr" class:visible={tldr}>
@@ -121,9 +109,9 @@
 
 <style>
 	.classic {
-		max-width: var(--col-width);
+		max-width: 1000px;
 		margin: 0 auto;
-		padding: 0 1rem;
+		padding: 0;
 		display: none;
 	}
 
@@ -155,7 +143,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		display: none;
+		/* display: none; */
 	}
 
 	.tldr {
@@ -167,5 +155,18 @@
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		gap: 0.5rem;
+	}
+
+	@media screen and (min-width: 1000px) {
+		.linear {
+			width: 360px;
+			padding: 0 20px;
+		}
+
+		.sidebar {
+			display: block;
+			width: 320px;
+			padding: 0 10px;
+		}
 	}
 </style>
