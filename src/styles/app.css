@@ -183,6 +183,10 @@ main {
 	display: none;
 }
 
+#story figure, #story aside {
+	transition: opacity 0.25s ease-in-out;
+}
+
 @media screen and (min-width: 480px) {
 	p, h3 {
 		font-size: 17px;

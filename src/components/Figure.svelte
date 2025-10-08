@@ -20,11 +20,11 @@
 		<figcaption>{@html caption}</figcaption>
 	{/if} -->
 	{#if video}
-		<video autoplay loop muted playsinline>
+		<video loop muted playsinline preload="metadata">
 			<source {src} type="video/mp4" />
 		</video>
 	{:else}
-		<img {src} {alt} />
+		<img {src} {alt} loading="lazy" />
 	{/if}
 	{#if !illo}
 		<img class="frame" src="assets/illos/frame.png" alt="" aria-hidden="true" />
@@ -60,8 +60,8 @@
 	}
 
 	@media screen and (min-width: 1000px) {
-		figure {
-			padding: 6px 8px;
+		figure.illo {
+			padding: 8px 0;
 			margin: 0;
 		}
 

@@ -88,7 +88,7 @@
 </div>
 
 <div class="tldr" class:visible={tldr}>
-	<Tldr figures={tldrFigures} {components} />
+	<!-- <Tldr figures={tldrFigures} {components} /> -->
 </div>
 
 <svelte:boundary onerror={(e) => console.error(e)}>
