@@ -10,6 +10,7 @@
 	import Tldr from "$components/Tldr.svelte";
 	import Jukebox from "$components/Jukebox.svelte";
 	import Bit from "$components/Bit.svelte";
+	import lookupFigure from "$utils/lookupFigure.js";
 
 	const copy = getContext("copy");
 	const data = getContext("data");
@@ -34,7 +35,7 @@
 							: d.type,
 				value:
 					d.type === "figure"
-						? lookupFigure(d.value)
+						? lookupFigure(d.value, data.media)
 						: d.type === "abridged"
 							? { text: d.value }
 							: d.value
@@ -45,7 +46,7 @@
 	const tldrFigures = data.media
 		.map((d) => ({
 			type: "Figure",
-			value: lookupFigure(d.src)
+			value: lookupFigure(d.src, data.media)
 		}))
 		.filter((d) => +d.value.tldr_order > 0);
 
@@ -71,18 +72,6 @@
 
 	let tldr = $state(false);
 
-	function lookupFigure(src, margin) {
-		// find match to get alt
-		const match = data.media.find((m) => m.src === src);
-		return {
-			src: `assets/${src}`,
-			alt: match?.alt,
-			top: margin && match ? match.top : "",
-			tldr_order: match?.tldr_order,
-			day: match?.day
-		};
-	}
-
 	function onToggle() {
 		tldr = !tldr;
 	}
@@ -92,8 +81,8 @@
 	<div class="linear">
 		<UI></UI>
 		<div class="hero">
-			<h1>{copy.meta.title}</h1>
-			<p>{copy.meta.description}</p>
+			<h1>{copy.hed}</h1>
+			<p>{@html copy.byline}</p>
 		</div>
 		<CMS {body} {components} />
 	</div>
@@ -113,6 +102,7 @@
 		margin: 0 auto;
 		padding: 0;
 		display: none;
+		justify-content: center;
 	}
 
 	.classic.visible {
@@ -134,9 +124,8 @@
 
 	.hero p {
 		font-family: var(--sans);
-		font-weight: bold;
-		margin: 0;
-		font-size: var(--28px);
+		font-size: 13px;
+		margin-top: 0.5rem;
 	}
 
 	button {

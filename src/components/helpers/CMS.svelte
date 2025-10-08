@@ -1,5 +1,6 @@
 <script>
 	import { getContext } from "svelte";
+	import lookupFigure from "$utils/lookupFigure.js";
 	const data = getContext("data");
 	// components: an object of components that map to section names (e.g., { "Hero": Hero }) where Hero is a Svelte component
 	// body: an array of objects that contain a {section, content} obj
@@ -7,25 +8,10 @@
 
 	const Figure = components.Figure;
 
-	function lookupFigure(src) {
-		// find match to get alt
-		const match = data.media.find((m) => m.src === src);
-		return {
-			src: `assets/${src}`,
-			alt: match?.alt,
-			tldr_order: match?.tldr_order,
-			side: src.includes("illos") ? "left" : "right",
-			day: match?.day,
-			top: match?.top,
-			bottom: match?.bottom,
-			align: match?.align
-		};
-	}
-
 	function custom(str) {
 		const chunks = str.split("~").map((d) => {
 			if (d.includes(".jpg") || d.includes(".png") || d.includes(".mp4")) {
-				return lookupFigure(d.trim());
+				return lookupFigure(d.trim(), data.media);
 			} else {
 				return `<span class="text">${d.trim()}</span>`;
 			}
@@ -53,9 +39,7 @@
 					<p>
 						{#each chunks as chunk}
 							{#if typeof chunk === "string"}
-								<span class="text">
-									{@html chunk.replace("\\", "")}
-								</span>
+								{@html chunk.replace("\\", "")}
 							{:else}
 								<Figure {...chunk} />
 							{/if}

@@ -1,5 +1,5 @@
 <script>
-	const { src, alt, caption, side, top, bottom, align } = $props();
+	const { src, alt, caption, side, top, bottom, align, cl } = $props();
 	const video = src.endsWith(".mp4");
 	const illo = src.endsWith(".png");
 	const mini = src.includes("mini-");
@@ -13,7 +13,7 @@
 	class:video
 	class:illo
 	class:mini
-	class="{side} {align}"
+	class="{side} {align} {cl}"
 	{style}
 >
 	<!-- {#if caption}
@@ -39,6 +39,10 @@
 		margin: 2em auto;
 		position: relative;
 		padding: 8px;
+	}
+
+	figure.illo {
+		padding: 0;
 	}
 
 	img {

@@ -15,8 +15,8 @@ day,src,alt,align,top,bottom,tldr_order,sidebar_order
 2,images/clinton-boardedupwalk.jpg,,,,,11,14
 4,images/oakham-honey.jpg,,,,,29,15
 5,images/northampton-stick.jpg,,,,,35,16
-4,images/oakham-boggs.jpg,,bottom,,,30,18
 4,videos/beer.mp4,,middle,,,31,17
+4,images/oakham-boggs.jpg,,bottom,,,30,18
 4,videos/new-braintree-road.mp4,,,,,32,19
 5,images/new-braintree-fog.jpg,,,,,36,20
 2,images/hudson-toycar.jpg,,,,,12,21
@@ -44,6 +44,7 @@ day,src,alt,align,top,bottom,tldr_order,sidebar_order
 8,images/great-barrington-tunnel.jpg,,middle,,,59,43
 8,images/great-barrington-shadow.jpg,,,,,60,44
 ,illos/cast.png,,,,,,
+,illos/ballislife.png,basketball eating a leg,,,,,
 ,illos/map.png,,,,,,
 ,illos/girl.png,,,,,,
 ,illos/mini-day1.png,,,,,,
@@ -99,3 +100,11 @@ day,src,alt,align,top,bottom,tldr_order,sidebar_order
 7,images/monterrey-mirror.jpg,,,,,52,
 8,videos/otis-pond.mp4,,,,,61,
 ,features/mass.png,,,,,,
+,features/day1.png,,,,,,
+,features/day2.png,,,,,,
+,features/day3.png,,,,,,
+,features/day4.png,,,,,,
+,features/day5.png,,,,,,
+,features/day6.png,,,,,,
+,features/day7.png,,,,,,
+,features/day8.png,,,,,,

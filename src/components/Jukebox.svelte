@@ -64,7 +64,7 @@
 	button {
 		display: flex;
 		align-items: center;
-		font-size: var(--14px);
+		font-size: 13px;
 		font-weight: bold;
 	}
 
@@ -73,6 +73,6 @@
 	}
 
 	.artist {
-		font-size: var(--14px);
+		font-size: 13px;
 	}
 </style>
