@@ -1,4 +1,5 @@
 <script>
+	import inView from "$actions/inView.js";
 	const { src, alt, caption, side, top, bottom, align, cl } = $props();
 	const video = src.endsWith(".mp4");
 	const illo = src.endsWith(".png");
@@ -6,6 +7,16 @@
 	const feature = src.includes("feature");
 
 	const style = `${top ? `--top: ${top}px;` : ""}${bottom ? `--bottom: ${bottom}px;` : ""}`;
+
+	let el = $state(null);
+
+	function onenter() {
+		if (el) el.play();
+	}
+
+	function onexit() {
+		if (el) el.pause();
+	}
 </script>
 
 <figure
@@ -20,7 +31,16 @@
 		<figcaption>{@html caption}</figcaption>
 	{/if} -->
 	{#if video}
-		<video loop muted playsinline preload="metadata">
+		<video
+			loop
+			muted
+			playsinline
+			preload="metadata"
+			bind:this={el}
+			use:inView
+			{onenter}
+			{onexit}
+		>
 			<source {src} type="video/mp4" />
 		</video>
 	{:else}
