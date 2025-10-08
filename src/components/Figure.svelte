@@ -73,6 +73,10 @@
 		padding: 0;
 	}
 
+	figure:not(.illo) {
+		min-height: 200px;
+	}
+
 	img {
 		width: 100%;
 	}
