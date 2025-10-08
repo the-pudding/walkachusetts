@@ -6,7 +6,6 @@
 	import UI from "$components/UI.svelte";
 	import Figure from "$components/Figure.svelte";
 	import Abridged from "$components/Abridged.svelte";
-	import Sidebar from "$components/Sidebar.svelte";
 	import Tldr from "$components/Tldr.svelte";
 	import Jukebox from "$components/Jukebox.svelte";
 	import Bit from "$components/Bit.svelte";
@@ -150,12 +149,6 @@
 		.linear {
 			width: 360px;
 			padding: 0 20px;
-		}
-
-		.sidebar {
-			display: block;
-			width: 320px;
-			padding: 0 10px;
 		}
 	}
 </style>
