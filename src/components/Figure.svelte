@@ -11,7 +11,7 @@
 
 	let el = $state(null);
 
-	const frame = sidebar_order ? (sidebar_order % 3) + 1 : 1;
+	const frame = sidebar_order ? (sidebar_order % 4) + 1 : 1;
 
 	function onenter() {
 		if (el) el.play();
@@ -91,7 +91,7 @@
 		user-select: none;
 	}
 
-	@media screen and (min-width: 1000px) {
+	@media screen and (min-width: 1020px) {
 		figure {
 			margin: 0 auto;
 		}

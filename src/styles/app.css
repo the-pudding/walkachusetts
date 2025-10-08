@@ -204,7 +204,7 @@ main {
 	}
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1020px) {
 
 	#story figure.hide-mobile {
 		display: block;

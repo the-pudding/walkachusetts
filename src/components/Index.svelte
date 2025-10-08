@@ -118,7 +118,6 @@
 		text-transform: uppercase;
 		font-family: var(--sans);
 		margin: 0;
-		margin-top: 4rem;
 	}
 
 	.hero p {
@@ -145,10 +144,8 @@
 		gap: 0.5rem;
 	}
 
-	@media screen and (min-width: 1000px) {
-		.linear {
-			width: 360px;
-			padding: 0 20px;
-		}
+	.linear {
+		max-width: 360px;
+		padding: 0 20px;
 	}
 </style>
