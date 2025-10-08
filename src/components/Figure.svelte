@@ -1,6 +1,7 @@
 <script>
 	import inView from "$actions/inView.js";
-	const { src, alt, caption, side, top, bottom, align, cl } = $props();
+	const { src, alt, caption, side, sidebar_order, top, bottom, align, cl, i } =
+		$props();
 	const video = src.endsWith(".mp4");
 	const illo = src.endsWith(".png");
 	const mini = src.includes("mini-");
@@ -9,6 +10,8 @@
 	const style = `${top ? `--top: ${top}px;` : ""}${bottom ? `--bottom: ${bottom}px;` : ""}`;
 
 	let el = $state(null);
+
+	const frame = sidebar_order ? (sidebar_order % 3) + 1 : 1;
 
 	function onenter() {
 		if (el) el.play();
@@ -47,7 +50,12 @@
 		<img {src} {alt} loading="lazy" />
 	{/if}
 	{#if !illo}
-		<img class="frame" src="assets/illos/frame.png" alt="" aria-hidden="true" />
+		<img
+			class="frame"
+			src="assets/illos/frame-{frame}.png"
+			alt=""
+			aria-hidden="true"
+		/>
 	{/if}
 </figure>
 
@@ -80,6 +88,10 @@
 	}
 
 	@media screen and (min-width: 1000px) {
+		figure {
+			margin: 0 auto;
+		}
+
 		figure.illo {
 			padding: 8px 0;
 			margin: 0;

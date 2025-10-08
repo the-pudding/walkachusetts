@@ -17,24 +17,31 @@
 	--z-overlay: 1000;
 
 	/* presets (used in reset.css) */
+	--color-black: #32302f;
+	--color-gray-600: #6a6864;
+	--color-gray-900: #32302f;
+	--color-black: #000;
+	--color-gray-300: #afaaa4;
+	--color-gray-100: #e1dad3;
+	--color-gray-50: #FBF3EB;
 	--border-radius: 2px;
 	--font-body: var(--serif);
 	--font-form: var(--sans);
-	--color-bg: var(--color-white);
+	--color-bg: var(--color-gray-50);
 	--color-fg: var(--color-gray-900);
-	--color-primary: var(--color-black);
-	--color-link: var(--color-black);
-	--color-link-hover: var(--color-black);
-	--color-focus: var(--color-red);
-	--color-mark: var(--color-yellow);
+	--color-primary: var(--color-fg);
+	--color-link: var(--color-fg);
+	--color-link-hover: var(--color-fg);
+	--color-focus: var(--color-fg);
+	--color-mark: var(--color-gray-300);
 	--color-selection: var(--color-gray-300);
 	--color-border: var(--color-gray-300);
 	--color-button-bg: var(--color-gray-100);
 	--color-button-fg: var(--color-fg);
 	--color-button-hover: var(--color-gray-300);
-	--color-input-bg: var(--color-gray-50);
+	--color-input-bg: var(--color-gray-100);
 	--color-input-fg: var(--color-gray-900);
-	--color-placeholder: var(--color-gray-500);
+	--color-placeholder: var(--color-gray-600);
 
 	/* "1" second duration */
 	--1s: 1ms;

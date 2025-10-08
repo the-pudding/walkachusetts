@@ -7,6 +7,7 @@ export default function lookupFigure(src, media) {
 		src: `assets/${s}`,
 		alt: match?.alt,
 		tldr_order: match?.tldr_order,
+		sidebar_order: match?.sidebar_order,
 		side: s.includes("illos") ? "left" : "right",
 		day: match?.day,
 		top: match?.top,
