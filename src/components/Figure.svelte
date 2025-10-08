@@ -5,7 +5,7 @@
 	const mini = src.includes("mini-");
 	const feature = src.includes("feature");
 
-	const style = `${top ? `top: ${top}px;` : ""}${bottom ? `bottom: ${bottom}px;` : ""}`;
+	const style = `${top ? `--top: ${top}px;` : ""}${bottom ? `--bottom: ${bottom}px;` : ""}`;
 </script>
 
 <figure
@@ -36,7 +36,7 @@
 		display: block;
 		width: 100%;
 		max-width: 360px;
-		margin: 2em auto;
+		margin: 3em auto;
 		position: relative;
 		padding: 8px;
 	}
@@ -68,10 +68,12 @@
 		figure.feature {
 			position: relative;
 			left: 50%;
-			max-width: none;
-			width: 640px;
-			margin: 2em auto;
+			max-width: none !important;
+			width: 640px !important;
+			margin: 2em auto !important;
 			transform: translate(-50%, 0);
+			top: var(--top, auto);
+			bottom: var(--bottom, auto);
 		}
 	}
 </style>
