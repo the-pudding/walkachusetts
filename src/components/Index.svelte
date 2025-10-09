@@ -131,6 +131,7 @@
 		padding: 0;
 		display: none;
 		justify-content: center;
+		min-height: 150vh;
 	}
 
 	.classic.visible {
