@@ -74,12 +74,31 @@
 	});
 
 	let tldr = $state(false);
+	let container = $state(null);
 
 	function onToggle() {
 		// move scroll to top
 		window.scrollTo({ top: 0 });
 		tldr = !tldr;
 	}
+
+	$effect(() => {
+		const els = document.querySelectorAll(".tldr a");
+		if (container && els.length) {
+			[...els].forEach((el) => {
+				el.addEventListener("click", (e) => {
+					e.stopPropagation();
+					e.preventDefault();
+					onToggle();
+					const href = e.currentTarget.getAttribute("href");
+					setTimeout(() => {
+						const target = document.querySelector(href);
+						if (target) target.scrollIntoView({ block: "start" });
+					}, 300);
+				});
+			});
+		}
+	});
 </script>
 
 <div class="classic" class:visible={!tldr}>
@@ -92,7 +111,7 @@
 	</div>
 </div>
 
-<div class="tldr" class:visible={tldr}>
+<div class="tldr" class:visible={tldr} bind:this={container}>
 	<Tldr figures={tldrFigures} {components} />
 </div>
 
