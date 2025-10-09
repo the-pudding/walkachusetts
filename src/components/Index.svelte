@@ -138,8 +138,8 @@
 
 	button {
 		position: fixed;
-		top: 16px;
-		left: 16px;
+		bottom: 16px;
+		right: 16px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -163,5 +163,14 @@
 	.linear {
 		max-width: 360px;
 		padding: 0 20px;
+	}
+
+	@media only screen and (min-width: 1020px) {
+		button {
+			top: 16px;
+			left: 16px;
+			right: auto;
+			bottom: auto;
+		}
 	}
 </style>
