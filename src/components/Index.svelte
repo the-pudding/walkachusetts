@@ -121,7 +121,7 @@
 	>{tldr ? "TEXT" : "TLDR"}</button
 >
 <svelte:boundary onerror={(e) => console.error(e)}>
-	<!-- <Footer recirc={true} /> -->
+	<Footer recirc={true} />
 </svelte:boundary>
 
 <style>
@@ -165,6 +165,7 @@
 		font-size: 13px;
 		font-weight: bold;
 		width: 7em;
+		z-index: var(--z-overlay);
 	}
 
 	button .icon {
