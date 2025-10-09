@@ -431,7 +431,7 @@ aside.hide {
 }
 
 @media (scripting: none) {
-  figure {
+  #story figure, #story aside {
 		opacity: 1 !important;
 	}
 }
