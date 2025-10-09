@@ -68,6 +68,9 @@
 		// insert abridged copy before dayIndex
 		if (dayIndex !== -1) {
 			tldrFigures.splice(dayIndex, 0, d);
+		} else {
+			// if no matching day, push to end
+			tldrFigures.push(d);
 		}
 	});
 
@@ -152,14 +155,11 @@
 	}
 
 	.tldr {
-		max-width: none !important;
 		display: none;
 	}
 
 	.tldr.visible {
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 0.5rem;
 	}
 
 	.linear {

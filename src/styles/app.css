@@ -118,7 +118,7 @@ h2 span {
 	font-size: var(--18px);
 	background: var(--color-fg);
 	color: var(--color-bg);
-	padding: 0.5em;
+	padding: 0.5rem;
 	text-transform: uppercase;
 	font-family: var(--sans);
 	font-weight: bold;
@@ -126,7 +126,9 @@ h2 span {
 
 .tldr {
 	background: var(--color-black);
-	padding: 0.5em;
+	padding: 0.5rem;
+	grid-template-columns: repeat(1, 1fr);
+	gap: 0.5rem;
 }
 
 .tldr p.abridged, .tldr figure {
@@ -140,10 +142,11 @@ h2 span {
 	padding: 0 !important;
 	font-family: var(--sans);
 	color: var(--color-bg);
+	font-size: var(--16px);
 }
 
 .tldr p.abridged {
-	padding: 1em !important;
+	padding: 1rem !important;
 }
 
 .tldr .abridged span {
@@ -152,11 +155,11 @@ h2 span {
 	font-size: var(--18px);
 	background: var(--color-bg);
 	color: var(--color-fg);
-	padding: 0.325em 0.5em;
+	padding: 0.325rem 0.5rem;
 	text-transform: uppercase;
 	font-family: var(--sans);
 	font-weight: bold;
-	margin-bottom: 0.5em;
+	margin-bottom: 0.5rem;
 }
 
 
@@ -185,10 +188,6 @@ aside a {
 
 aside.hide {
 	display: none;
-}
-
-main {
-	padding: 0 16px;
 }
 
 #story > *:not(figure), .hero {
@@ -223,6 +222,7 @@ main {
 	transition: opacity 0.25s ease-in-out;
 }
 
+
 @media screen and (min-width: 480px) {
 	p, h3 {
 		font-size: 17px;
@@ -256,7 +256,7 @@ main {
 
 	#story p {
 		font-size: 17px;
-		margin: 1.5em 0;
+		margin: 1.5rem 0;
 		position: relative;
 	}
 
@@ -391,5 +391,37 @@ main {
 
 	#story figure.left.bottom {
 		transform: translate(calc(-100% - 60px), 0);
+	}
+}
+
+@media screen and (min-width: 480px) {
+	.tldr {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (min-width: 720px) {
+	.tldr {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media screen and (min-width: 900px) {
+	.tldr p.abridged {
+		font-size: 17px;
+	}
+}
+
+@media screen and (min-width: 1100px) {
+	.tldr {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.tldr {
+		max-width: 1600px !important;
+		margin: 0 auto;
+		grid-template-columns: repeat(5, 1fr);
 	}
 }

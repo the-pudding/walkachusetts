@@ -8,6 +8,3 @@
 		<C {...value} />
 	{/if}
 {/each}
-
-<style>
-</style>
