@@ -429,3 +429,9 @@ aside.hide {
 		grid-template-columns: repeat(5, 1fr);
 	}
 }
+
+@media (scripting: none) {
+  figure {
+		opacity: 1 !important;
+	}
+}
