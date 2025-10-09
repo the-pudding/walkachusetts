@@ -55,12 +55,6 @@
 		margin-bottom: 12px;
 	}
 
-	.w {
-		/* display: flex;
-		flex-wrap: wrap;
-		align-items: center; */
-	}
-
 	button {
 		display: flex;
 		align-items: center;

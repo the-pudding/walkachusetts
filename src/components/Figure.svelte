@@ -11,7 +11,7 @@
 
 	let el = $state(null);
 
-	const frame = sidebar_order ? (sidebar_order % 4) + 1 : 1;
+	const frame = sidebar_order ? (sidebar_order % 5) + 1 : 1;
 
 	function onenter() {
 		if (el) el.play();

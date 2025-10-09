@@ -121,15 +121,44 @@ h2 span {
 	padding: 0.5em;
 	text-transform: uppercase;
 	font-family: var(--sans);
+	font-weight: bold;
+}
+
+.tldr {
+	background: var(--color-black);
+	padding: 0.5em;
 }
 
 .tldr p.abridged, .tldr figure {
-	display: block;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
 	width: 100% !important;
 	margin: 0 !important;
 	max-width: none !important;
 	padding: 0 !important;
+	font-family: var(--sans);
+	color: var(--color-bg);
 }
+
+.tldr p.abridged {
+	padding: 1em !important;
+}
+
+.tldr .abridged span {
+	display: inline-flex;
+	line-height: 1;
+	font-size: var(--18px);
+	background: var(--color-bg);
+	color: var(--color-fg);
+	padding: 0.325em 0.5em;
+	text-transform: uppercase;
+	font-family: var(--sans);
+	font-weight: bold;
+	margin-bottom: 0.5em;
+}
+
 
 .tldr figure .frame {
 	display: none;
@@ -293,8 +322,8 @@ main {
 		transform: translate(calc(-100% - 20px), 0);
 	}
 
-	h2 {
-		margin-top: 6rem;
+	#story h2 {
+		margin-top: 6rem !important;
 	}
 
 	#story figure.massmap {
