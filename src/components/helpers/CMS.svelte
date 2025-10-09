@@ -45,6 +45,8 @@
 							{/if}
 						{/each}
 					</p>
+				{:else if type === "h2"}
+					<h2 id={value.toLowerCase().replace(/[^a-z]/g, "")}>{@html value}</h2>
 				{:else if isString}
 					<svelte:element this={type}>
 						{@html value}

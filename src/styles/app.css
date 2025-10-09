@@ -98,6 +98,10 @@ button {
 	border: 2px solid var(--color-fg);
 }
 
+button, a {
+	cursor: pointer;
+}
+
 p, h3 {
 	line-height: 1.75;
 	font-size: 16px;
@@ -112,23 +116,16 @@ span.strike {
 	display: none;
 }
 
-h2 span {
-	display: inline-flex;
-	line-height: 1;
-	font-size: var(--18px);
-	background: var(--color-fg);
-	color: var(--color-bg);
-	padding: 0.5rem;
-	text-transform: uppercase;
-	font-family: var(--sans);
-	font-weight: bold;
-}
-
 .tldr {
 	background: var(--color-black);
 	padding: 0.5rem;
 	grid-template-columns: repeat(1, 1fr);
 	gap: 0.5rem;
+}
+
+.tldr a {
+	color: var(--color-gray-300);
+	text-decoration-color: currentColor;
 }
 
 .tldr p.abridged, .tldr figure {
@@ -196,11 +193,18 @@ aside.hide {
 }
 
 #story h2 {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
 	margin-top: 4rem !important;
 	font-size: var(--28px);
+	display: inline-block;
+	line-height: 1;
+	font-size: var(--18px);
+	background: var(--color-fg);
+	color: var(--color-bg);
+	padding: 0.5rem;
+	text-transform: uppercase;
+	font-family: var(--sans);
+	font-weight: bold;
+	margin-bottom: 0;
 }
 
 #story figure.feature {

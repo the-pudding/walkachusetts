@@ -3,7 +3,6 @@
 	import { getContext } from "svelte";
 	import Footer from "$components/Footer.svelte";
 	import CMS from "$components/helpers/CMS.svelte";
-	import UI from "$components/UI.svelte";
 	import Figure from "$components/Figure.svelte";
 	import Abridged from "$components/Abridged.svelte";
 	import Tldr from "$components/Tldr.svelte";
@@ -85,8 +84,7 @@
 
 <div class="classic" class:visible={!tldr}>
 	<div class="linear">
-		<UI></UI>
-		<div class="hero">
+		<div class="hero" id="hero">
 			<h1>{copy.hed}</h1>
 			<p>{@html copy.byline}</p>
 		</div>
