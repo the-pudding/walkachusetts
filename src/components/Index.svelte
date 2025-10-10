@@ -104,7 +104,10 @@
 <div class="classic" class:visible={!tldr}>
 	<div class="linear">
 		<div class="hero" id="hero">
-			<h1>{copy.hed}</h1>
+			<h1 class="sr-only">{copy.hed}</h1>
+			<Figure
+				{...lookupFigure("features/title.png", data.media, data.dimensions)}
+			/>
 			<p>{@html copy.byline}</p>
 		</div>
 		<CMS {body} {components} />
@@ -153,7 +156,7 @@
 	.hero p {
 		font-family: var(--sans);
 		font-size: 13px;
-		margin-top: 0.5rem;
+		margin-top: -2rem;
 	}
 
 	button {

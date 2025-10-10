@@ -226,6 +226,10 @@ aside.hide {
 	transition: opacity 0.5s ease-in-out;
 }
 
+#hero figure.feature {
+	margin: 0 auto !important;
+}
+
 
 @media screen and (min-width: 480px) {
 	p, h3 {
@@ -439,3 +443,4 @@ aside.hide {
 		opacity: 1 !important;
 	}
 }
+
