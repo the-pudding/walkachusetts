@@ -41,15 +41,15 @@
 	class="{side} {align} {cl}"
 	{style}
 >
-	<!-- {#if caption}
-		<figcaption>{@html caption}</figcaption>
-	{/if} -->
 	{#if video}
 		<video
 			loop
 			muted
 			playsinline
 			preload="metadata"
+			poster={src
+				.replace(".webm", ".webp")
+				.replace("videos-webm", "images-webp")}
 			bind:this={el}
 			use:inView
 			{onenter}
