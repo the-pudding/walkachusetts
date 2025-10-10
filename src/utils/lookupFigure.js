@@ -1,18 +1,33 @@
-export default function lookupFigure(src, media) {
+function swap(s) {
+	// webm, webp
+	const ext = s.includes("mp4") ? "webm" : "webp";
+	return s
+		.replace("mp4", "webm")
+		.replace("jpg", "webp")
+		.replace("png", "webp")
+		.replace("/", `-${ext}/`);
+}
+
+export default function lookupFigure(src, media, dimensions) {
 	const isObj = typeof src === "object";
 	const s = isObj ? src.value : src;
 	// find match to get alt
-	const match = media.find((m) => m.src === s.replace("mobile", "illos"));
+	const swapped = swap(s);
+	const m1 = media.find((m) => m.src === s.replace("mobile", "illos"));
+	const m2 = dimensions.find((m) => m.src === swapped);
+
 	return {
-		src: `assets/${s}`,
-		alt: match?.alt,
-		tldr_order: match?.tldr_order,
-		sidebar_order: match?.sidebar_order,
+		src: `assets/${swapped}`,
+		alt: m1?.alt,
+		tldr_order: m1?.tldr_order,
+		sidebar_order: m1?.sidebar_order,
 		side: s.includes("illos") ? "left" : "right",
-		day: match?.day,
-		top: match?.top,
-		bottom: match?.bottom,
-		align: match?.align,
+		day: m1?.day,
+		top: m1?.top,
+		bottom: m1?.bottom,
+		align: m1?.align,
+		w: m2?.w,
+		h: m2?.h,
 		cl: isObj ? src.cl : ""
 	};
 }

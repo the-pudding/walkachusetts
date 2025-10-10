@@ -11,7 +11,7 @@
 	function custom(str) {
 		const chunks = str.split("~").map((d) => {
 			if (d.includes(".jpg") || d.includes(".png") || d.includes(".mp4")) {
-				return lookupFigure(d.trim(), data.media);
+				return lookupFigure(d.trim(), data.media, data.dimensions);
 			} else {
 				return `<span class="text">${d.trim()}</span>`;
 			}

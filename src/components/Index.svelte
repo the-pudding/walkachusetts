@@ -35,7 +35,7 @@
 							: d.type,
 				value:
 					d.type === "figure"
-						? lookupFigure(d.value, data.media)
+						? lookupFigure(d.value, data.media, data.dimensions)
 						: d.type === "abridged"
 							? { text: d.value }
 							: d.value
@@ -46,7 +46,7 @@
 	const tldrFigures = data.media
 		.map((d) => ({
 			type: "Figure",
-			value: lookupFigure(d.src, data.media)
+			value: lookupFigure(d.src, data.media, data.dimensions)
 		}))
 		.filter((d) => +d.value.tldr_order > 0);
 

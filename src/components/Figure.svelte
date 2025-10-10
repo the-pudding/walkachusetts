@@ -1,10 +1,22 @@
 <script>
 	import inView from "$actions/inView.js";
-	const { src, alt, caption, side, sidebar_order, top, bottom, align, cl, i } =
-		$props();
-	const video = src.endsWith(".mp4");
-	const illo = src.endsWith(".png");
-	const mini = src.includes("mini-");
+	const {
+		src,
+		alt,
+		caption,
+		side,
+		sidebar_order,
+		top,
+		bottom,
+		align,
+		w,
+		h,
+		cl,
+		i
+	} = $props();
+	const video = src.includes("video");
+	const illo =
+		src.includes("illos") || src.includes("mobile") || src.includes("features");
 	const feature = src.includes("feature");
 
 	const style = `${top ? `--top: ${top}px;` : ""}${bottom ? `--bottom: ${bottom}px;` : ""}`;
@@ -26,7 +38,6 @@
 	class:feature
 	class:video
 	class:illo
-	class:mini
 	class="{side} {align} {cl}"
 	{style}
 >
@@ -47,7 +58,7 @@
 			<source {src} type="video/mp4" />
 		</video>
 	{:else}
-		<img {src} {alt} loading="lazy" />
+		<img {src} {alt} loading="lazy" width={w} height={h} />
 	{/if}
 	{#if !illo}
 		<img
