@@ -13,7 +13,7 @@
 			if (d.includes(".jpg") || d.includes(".png") || d.includes(".mp4")) {
 				return lookupFigure(d.trim(), data.media, data.dimensions);
 			} else {
-				return `<span class="text">${d.trim()}</span>`;
+				return `${d.trim()}`;
 			}
 		});
 
@@ -36,15 +36,15 @@
 				{#if C}
 					<C {...value} />
 				{:else if type === "text"}
-					<p>
+					<div class="chunk">
 						{#each chunks as chunk}
 							{#if typeof chunk === "string"}
-								{@html chunk.replace("\\", "")}
+								<p>{@html chunk.replace("\\", "")}</p>
 							{:else}
 								<Figure {...chunk} />
 							{/if}
 						{/each}
-					</p>
+					</div>
 				{:else if type === "h2"}
 					<h2 id={value.toLowerCase().replace(/[^a-z]/g, "")}>{@html value}</h2>
 				{:else if isString}

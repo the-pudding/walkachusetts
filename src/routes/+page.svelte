@@ -20,18 +20,6 @@
 	const { title, description, url, keywords } = copy;
 	setContext("copy", copy);
 	setContext("data", data);
-
-	// $effect(() => {
-	// 	setTimeout(() => {
-	// 		if (browser) {
-	// 			document
-	// 				.querySelectorAll("#story figure, #story aside")
-	// 				.forEach((el) => {
-	// 					el.style.opacity = 1;
-	// 				});
-	// 		}
-	// 	}, 1000);
-	// });
 </script>
 
 <Meta {title} {description} {url} {preloadFont} {keywords} />
