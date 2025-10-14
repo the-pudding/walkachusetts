@@ -4,7 +4,9 @@
 
 {#each figures as { type, value }}
 	{@const C = components[type]}
-	{#if C}
-		<C {...value} />
-	{/if}
+	<div class="f">
+		{#if C}
+			<C {...value} />
+		{/if}
+	</div>
 {/each}

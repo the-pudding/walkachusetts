@@ -47,7 +47,7 @@
 	--1s: 1ms;
 	
 	--col-width: 720px;
-	
+	--gap: 0.5rem;
 }
 
 /* dark theme */
@@ -112,23 +112,22 @@ span.strike {
 	text-decoration: line-through;
 }
 
-#story p.abridged {
+#text p.abridged {
 	display: none;
 }
 
-.tldr {
+#tldr {
 	background: var(--color-black);
 	padding: 0.5rem;
-	grid-template-columns: repeat(1, 1fr);
-	gap: 0.5rem;
+	gap: var(--gap);
 }
 
-.tldr a {
+#tldr a {
 	color: var(--color-gray-300);
 	text-decoration-color: currentColor;
 }
 
-.tldr p.abridged, .tldr figure {
+#tldr p.abridged, #tldr figure {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -142,11 +141,11 @@ span.strike {
 	font-size: var(--16px);
 }
 
-.tldr p.abridged {
+#tldr p.abridged {
 	padding: 1rem !important;
 }
 
-.tldr .abridged span {
+#tldr .abridged span {
 	display: inline-flex;
 	line-height: 1;
 	font-size: var(--18px);
@@ -160,11 +159,11 @@ span.strike {
 }
 
 
-.tldr figure .frame {
+#tldr figure .frame {
 	display: none;
 }
 
-#story .chunk figure {
+#text .chunk figure {
 	display: none;
 }
 
@@ -187,12 +186,12 @@ aside.hide {
 	display: none;
 }
 
-#story > *:not(figure), .hero {
+#text > *:not(figure), #intro, #hero {
 	max-width: 360px;
 	margin: 1rem auto;
 }
 
-#story h2 {
+#text h2 {
 	margin-top: 4rem !important;
 	font-size: var(--28px);
 	display: inline-block;
@@ -207,29 +206,24 @@ aside.hide {
 	margin-bottom: 0;
 }
 
-#story figure.feature {
+#text figure.feature {
 	width: 100%;
 	max-width: none !important;
 	margin: 2rem auto !important;
 }
 
-#story figure.hide-desktop {
+#text figure.hide-desktop {
 	display: block;
 	max-width: 640px !important;
 }
 
-#story figure.hide-mobile {
+#text figure.hide-mobile {
 	display: none;
-}
-
-#story figure, #story aside {
-	transition: opacity 0.5s ease-in-out;
 }
 
 #hero figure.feature {
 	margin: 0 auto !important;
 }
-
 
 @media screen and (min-width: 480px) {
 	p, h3 {
@@ -242,41 +236,43 @@ aside.hide {
 }
 
 @media screen and (min-width: 1020px) {
-
-	#story figure.hide-mobile {
-		display: block;
-	}
-
-	#story figure.hide-desktop {
+	#text section > figure {
 		display: none;
 	}
 
+	#diary figure.hide-mobile {
+		display: block;
+	}
+
+	#diary figure.hide-desktop {
+		display: none;
+	}
 
 	aside.hide {
 		display: block;
 	}
 
-	#story {
+	#text {
 		max-width: 360px;
 		margin: 0 auto;
 	}
 
 
-	#story {
+	#text {
 		font-size: 17px;
 		margin: 1.5rem 0;
 	}
 
-	#story .chunk {
+	#text .chunk {
 		position: relative;
 
 	}
 	
-	#story .chunk figure {
+	#text .chunk figure {
 		display: inline-block;
 	}
 
-	#story > figure {
+	#text > figure {
 		display: none;
 	}
 
@@ -298,47 +294,47 @@ aside.hide {
 		color: var(--color-gray-600);
 	}
 	
-	#story figure.left {
+	#diary figure.left {
 		position: absolute;
 		top: var(--top, 0);
 		left: 0;
 		transform: translate(calc(-100% - 20px), 0);
 	}
 
-	#story figure.right:not(.feature) {
+	#diary figure.right:not(.feature) {
 		position: absolute;
 		top: var(--top, 0);
 		left: 0;
 		transform: translate(calc(100% + 20px), 0);
 	}
 
-	#story figure.right.middle {
+	#diary figure.right.middle {
 		top: 50%;
 		transform: translate(calc(100% + 20px), -50%);
 	}
 
-	#story figure.left.middle {
+	#diary figure.left.middle {
 		top: 50%;
 		transform: translate(calc(-100% - 20px), -50%);
 	}
 
-	#story figure.right.bottom {
+	#diary figure.right.bottom {
 		top: auto;
 		bottom: var(--bottom, 0);
 		transform: translate(calc(100% + 20px), 0);
 	}
 
-	#story figure.left.bottom {
+	#diary figure.left.bottom {
 		top: auto;
 		bottom: var(--bottom, 0);
 		transform: translate(calc(-100% - 20px), 0);
 	}
 
-	#story h2 {
+	#text h2 {
 		margin-top: 6rem !important;
 	}
 
-	#story figure.massmap {
+	#diary figure.massmap {
 		margin: -2rem auto -10rem auto !important;
 		z-index: -1;
 		/* left: 80%; */
@@ -351,27 +347,27 @@ aside.hide {
 		transform: translate(calc(100% + 40px), 0);
 	}
 
-	#story figure.left {
+	#diary figure.left {
 		transform: translate(calc(-100% - 40px), 0);
 	}
 
-	#story figure.right:not(.feature) {
+	#diary figure.right:not(.feature) {
 		transform: translate(calc(100% + 40px), 0);
 	}
 
-	#story figure.right.middle {
+	#diary figure.right.middle {
 		transform: translate(calc(100% + 40px), -50%);
 	}
 
-	#story figure.left.middle {
+	#diary figure.left.middle {
 		transform: translate(calc(-100% - 40px), -50%);
 	}
 
-	#story figure.right.bottom {
+	#diary figure.right.bottom {
 		transform: translate(calc(100% + 40px), 0);
 	}
 
-	#story figure.left.bottom {
+	#diary figure.left.bottom {
 		transform: translate(calc(-100% - 40px), 0);
 	}
 }
@@ -381,66 +377,61 @@ aside.hide {
 		transform: translate(calc(100% + 60px), 0);
 	}
 
-	#story figure.left {
+	#diary figure.left {
 		transform: translate(calc(-100% - 60px), 0);
 	}
 
-	#story figure.right:not(.feature) {
+	#diary figure.right:not(.feature) {
 		transform: translate(calc(100% + 60px), 0);
 	}
 
-	#story figure.right.middle {
+	#diary figure.right.middle {
 		transform: translate(calc(100% + 60px), -50%);
 	}
 
-	#story figure.left.middle {
+	#diary figure.left.middle {
 		transform: translate(calc(-100% - 60px), -50%);
 	}
 
-	#story figure.right.bottom {
+	#diary figure.right.bottom {
 		transform: translate(calc(100% + 60px), 0);
 	}
 
-	#story figure.left.bottom {
+	#diary figure.left.bottom {
 		transform: translate(calc(-100% - 60px), 0);
 	}
 }
 
 @media screen and (min-width: 480px) {
-	.tldr {
-		grid-template-columns: repeat(2, 1fr);
+	#tldr .f {
+		width: calc(50% - var(--gap));
 	}
 }
 
-@media screen and (min-width: 720px) {
-	.tldr {
-		grid-template-columns: repeat(3, 1fr);
+@media screen and (min-width: 800px) {
+	#tldr .f {
+		width: calc(33.33% - var(--gap));
 	}
 }
 
 @media screen and (min-width: 900px) {
-	.tldr p.abridged {
+	#tldr p.abridged {
 		font-size: 17px;
 	}
 }
 
-@media screen and (min-width: 1100px) {
-	.tldr {
-		grid-template-columns: repeat(4, 1fr);
+@media screen and (min-width: 120px) {
+	#tldr .f {
+		width: calc(25% - var(--gap));
 	}
 }
 
-@media screen and (min-width: 1400px) {
-	.tldr {
+@media screen and (min-width: 1600px) {
+	#tldr {
 		max-width: 1600px !important;
 		margin: 0 auto;
-		grid-template-columns: repeat(5, 1fr);
+	}
+	#tldr .f {
+		width: calc(20% - var(--gap));
 	}
 }
-
-@media (scripting: none) {
-  #story figure, #story aside {
-		opacity: 1 !important;
-	}
-}
-

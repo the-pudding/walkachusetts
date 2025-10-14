@@ -22,26 +22,24 @@
 		Bit
 	};
 
-	const body = [
-		{
-			...copy.body[0],
-			content: copy.body[0].content.map((d) => ({
-				...d,
-				type:
-					d.type === "figure"
-						? "Figure"
-						: d.type === "abridged"
-							? "Abridged"
-							: d.type,
-				value:
-					d.type === "figure"
-						? lookupFigure(d.value, data.media, data.dimensions)
-						: d.type === "abridged"
-							? { text: d.value }
-							: d.value
-			}))
-		}
-	];
+	const body = copy.body.map((d) => ({
+		section: d.section,
+		content: d.content.map((d) => ({
+			...d,
+			type:
+				d.type === "figure"
+					? "Figure"
+					: d.type === "abridged"
+						? "Abridged"
+						: d.type,
+			value:
+				d.type === "figure"
+					? lookupFigure(d.value, data.media, data.dimensions)
+					: d.type === "abridged"
+						? { text: d.value }
+						: d.value
+		}))
+	}));
 
 	const tldrFigures = data.media
 		.map((d) => ({
@@ -54,12 +52,16 @@
 		ascending(+a.value.tldr_order, +b.value.tldr_order)
 	);
 
-	const abridgedCopy = copy.body[0].content
-		.filter((d) => d.type === "abridged")
-		.map((d, i) => ({
-			type: "Abridged",
-			value: { text: d.value }
-		}));
+	const abridgedCopy = [
+		...copy.body.map((d) =>
+			d.content
+				.filter((d) => d.type === "abridged")
+				.map((d, i) => ({
+					type: "Abridged",
+					value: { text: d.value }
+				}))
+		)
+	].flat();
 
 	// insert abridged copy into tldr figures at intervals (find .day that matches of abridgeCopy index, and insert there)
 	abridgedCopy.forEach((d, i) => {
@@ -75,15 +77,35 @@
 
 	let tldr = $state(false);
 	let container = $state(null);
+	let decided = $state(false);
 
-	function onToggle() {
-		// move scroll to top
-		window.scrollTo({ top: 0 });
-		tldr = !tldr;
+	function onToggle(v) {
+		if (v !== undefined) {
+			if (!tldr && !v) {
+				setTimeout(() => {
+					const target = document.querySelector("#diary");
+					if (target)
+						target.scrollIntoView({ block: "start", behavior: "smooth" });
+				}, 100);
+			} else if (v) window.scrollTo({ top: 0 });
+
+			tldr = v;
+			decided = true;
+		} else {
+			decided = true;
+			tldr = !tldr;
+			if (tldr) window.scrollTo({ top: 0 });
+			else {
+				setTimeout(() => {
+					const target = document.querySelector("#diary");
+					if (target) target.scrollIntoView({ block: "start" });
+				}, 100);
+			}
+		}
 	}
 
 	$effect(() => {
-		const els = document.querySelectorAll(".tldr a");
+		const els = document.querySelectorAll("#tldr a");
 		if (container && els.length) {
 			[...els].forEach((el) => {
 				el.addEventListener("click", (e) => {
@@ -101,24 +123,47 @@
 	});
 </script>
 
-<div class="classic" class:visible={!tldr}>
-	<div class="linear">
+<div id="text" class:visible={!tldr}>
+	<div id="intro">
+		<h1 class="sr-only">{copy.hed}</h1>
+		<p>{@html copy.intro.a}</p>
+		<Figure {...lookupFigure("mobile/cast.png", data.media, data.dimensions)} />
+		<p>{@html copy.intro.b}</p>
+		<p>{@html copy.intro.c}</p>
+		<p>{@html copy.intro.d}</p>
+		<div class="decide">
+			<p>
+				<button onclick={() => onToggle(false)}
+					><span class="icon"><ScrollText></ScrollText></span><span>TEXT</span>
+				</button>
+				<small>Visually-aided diary</small>
+			</p>
+			<p>
+				<button onclick={() => onToggle(true)}
+					><span class="icon"><Image></Image></span><span>TLDR</span>
+				</button>
+				<small>Mostly images</small>
+			</p>
+		</div>
+	</div>
+
+	<div id="diary" class:visible={!tldr && decided}>
 		<div class="hero" id="hero">
 			<h1 class="sr-only">{copy.hed}</h1>
 			<Figure
 				{...lookupFigure("features/title.png", data.media, data.dimensions)}
 			/>
-			<p>{@html copy.byline}</p>
+			<p class="byline">{@html copy.byline}</p>
 		</div>
 		<CMS {body} {components} />
 	</div>
 </div>
 
-<div class="tldr" class:visible={tldr} bind:this={container}>
+<div id="tldr" class:visible={tldr} bind:this={container}>
 	<Tldr figures={tldrFigures} {components} />
 </div>
 
-<button onclick={onToggle}
+<button class="fixed" class:visible={decided} onclick={() => onToggle()}
 	><span class="icon"
 		>{#if tldr}<ScrollText></ScrollText>{:else}<Image></Image>{/if}</span
 	>{tldr ? "TEXT" : "TLDR"}</button
@@ -128,17 +173,17 @@
 </svelte:boundary>
 
 <style>
-	.classic {
+	#text {
 		max-width: 1000px;
 		margin: 0 auto;
 		padding: 0;
 		display: none;
 		justify-content: center;
-		min-height: 150vh;
+		min-height: 100vh;
 	}
 
-	.classic.visible {
-		display: flex;
+	#text.visible {
+		display: block;
 	}
 
 	h1 {
@@ -153,44 +198,80 @@
 		margin: 0;
 	}
 
-	.hero p {
-		font-family: var(--sans);
-		font-size: 13px;
-		margin-top: -2rem;
-	}
-
-	button {
+	button.fixed {
 		position: fixed;
 		bottom: 16px;
 		right: 16px;
+		z-index: var(--z-overlay);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.25s ease-in-out;
+	}
+
+	button.fixed.visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	button {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-size: 13px;
 		font-weight: bold;
 		width: 7em;
-		z-index: var(--z-overlay);
 	}
 
 	button .icon {
 		margin-right: 8px;
 	}
 
-	.tldr {
+	#tldr {
 		display: none;
 	}
 
-	.tldr.visible {
-		display: grid;
+	#tldr.visible {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-start;
 	}
 
-	.linear {
+	.decide {
+		display: flex;
+		justify-content: center;
+	}
+
+	.decide p {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0 1rem;
+	}
+
+	#intro {
 		max-width: 360px;
 		padding: 0 20px;
 	}
 
+	#diary {
+		display: none;
+		max-width: 360px;
+		padding: 0 20px;
+	}
+
+	#diary.visible {
+		display: block;
+	}
+
+	.byline {
+		font-family: var(--sans);
+		font-size: 13px;
+		margin-top: -4rem;
+	}
+
 	@media only screen and (min-width: 1020px) {
-		button {
+		button.fixed {
 			top: 16px;
 			left: 16px;
 			right: auto;
