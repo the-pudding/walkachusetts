@@ -67,6 +67,7 @@
 	}
 
 	.artist {
+		font-family: var(--sans);
 		font-size: 13px;
 	}
 </style>
