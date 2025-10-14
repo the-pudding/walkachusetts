@@ -191,8 +191,11 @@ aside.hide {
 	margin: 1rem auto;
 }
 
+#text section {
+	padding-top: 4rem !important;
+}
+
 #text h2 {
-	margin-top: 4rem !important;
 	font-size: var(--28px);
 	display: inline-block;
 	line-height: 1;
@@ -225,6 +228,10 @@ aside.hide {
 	margin: 0 auto !important;
 }
 
+#journal figure {
+	margin: 3rem auto;
+}
+
 @media screen and (min-width: 480px) {
 	p, h3 {
 		font-size: 17px;
@@ -240,11 +247,15 @@ aside.hide {
 		display: none;
 	}
 
-	#diary figure.hide-mobile {
+	#journal figure {
+		margin: 0 auto;
+	}
+
+	#journal figure.hide-mobile {
 		display: block;
 	}
 
-	#diary figure.hide-desktop {
+	#journal figure.hide-desktop {
 		display: none;
 	}
 
@@ -294,47 +305,43 @@ aside.hide {
 		color: var(--color-gray-600);
 	}
 	
-	#diary figure.left {
+	#journal figure.left {
 		position: absolute;
 		top: var(--top, 0);
 		left: 0;
 		transform: translate(calc(-100% - 20px), 0);
 	}
 
-	#diary figure.right:not(.feature) {
+	#journal figure.right:not(.feature) {
 		position: absolute;
 		top: var(--top, 0);
 		left: 0;
 		transform: translate(calc(100% + 20px), 0);
 	}
 
-	#diary figure.right.middle {
+	#journal figure.right.middle {
 		top: 50%;
 		transform: translate(calc(100% + 20px), -50%);
 	}
 
-	#diary figure.left.middle {
+	#journal figure.left.middle {
 		top: 50%;
 		transform: translate(calc(-100% - 20px), -50%);
 	}
 
-	#diary figure.right.bottom {
+	#journal figure.right.bottom {
 		top: auto;
 		bottom: var(--bottom, 0);
 		transform: translate(calc(100% + 20px), 0);
 	}
 
-	#diary figure.left.bottom {
+	#journal figure.left.bottom {
 		top: auto;
 		bottom: var(--bottom, 0);
 		transform: translate(calc(-100% - 20px), 0);
 	}
 
-	#text h2 {
-		margin-top: 6rem !important;
-	}
-
-	#diary figure.massmap {
+	#journal figure.massmap {
 		margin: -2rem auto -10rem auto !important;
 		z-index: -1;
 		/* left: 80%; */
@@ -347,27 +354,27 @@ aside.hide {
 		transform: translate(calc(100% + 40px), 0);
 	}
 
-	#diary figure.left {
+	#journal figure.left {
 		transform: translate(calc(-100% - 40px), 0);
 	}
 
-	#diary figure.right:not(.feature) {
+	#journal figure.right:not(.feature) {
 		transform: translate(calc(100% + 40px), 0);
 	}
 
-	#diary figure.right.middle {
+	#journal figure.right.middle {
 		transform: translate(calc(100% + 40px), -50%);
 	}
 
-	#diary figure.left.middle {
+	#journal figure.left.middle {
 		transform: translate(calc(-100% - 40px), -50%);
 	}
 
-	#diary figure.right.bottom {
+	#journal figure.right.bottom {
 		transform: translate(calc(100% + 40px), 0);
 	}
 
-	#diary figure.left.bottom {
+	#journal figure.left.bottom {
 		transform: translate(calc(-100% - 40px), 0);
 	}
 }
@@ -377,27 +384,27 @@ aside.hide {
 		transform: translate(calc(100% + 60px), 0);
 	}
 
-	#diary figure.left {
+	#journal figure.left {
 		transform: translate(calc(-100% - 60px), 0);
 	}
 
-	#diary figure.right:not(.feature) {
+	#journal figure.right:not(.feature) {
 		transform: translate(calc(100% + 60px), 0);
 	}
 
-	#diary figure.right.middle {
+	#journal figure.right.middle {
 		transform: translate(calc(100% + 60px), -50%);
 	}
 
-	#diary figure.left.middle {
+	#journal figure.left.middle {
 		transform: translate(calc(-100% - 60px), -50%);
 	}
 
-	#diary figure.right.bottom {
+	#journal figure.right.bottom {
 		transform: translate(calc(100% + 60px), 0);
 	}
 
-	#diary figure.left.bottom {
+	#journal figure.left.bottom {
 		transform: translate(calc(-100% - 60px), 0);
 	}
 }

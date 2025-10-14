@@ -75,7 +75,6 @@
 		display: block;
 		width: 100%;
 		max-width: 360px;
-		margin: 3em auto;
 		position: relative;
 		padding: 8px;
 	}
@@ -107,7 +106,7 @@
 			margin: 0 auto;
 		}
 
-		figure.illo {
+		:global(#journal figure.illo) {
 			padding: 8px 0;
 			margin: 0;
 		}

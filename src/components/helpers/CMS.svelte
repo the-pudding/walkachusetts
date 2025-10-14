@@ -21,11 +21,12 @@
 	}
 </script>
 
-{#each body as { section, content }}
+{#each body as { section, steps, content }}
 	<!-- replace all non alpha numeric characters with "" -->
 	{@const id = section.toLowerCase().replace(/[^a-z0-9]/g, "")}
+	{@const stepper = !!steps}
 	{@const C = components[section]}
-	<section {id}>
+	<section {id} class:stepper>
 		{#if C}
 			<C {...content} />
 		{:else}

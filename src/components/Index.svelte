@@ -1,16 +1,18 @@
 <script>
-	import { ascending } from "d3";
 	import { getContext } from "svelte";
 	import Footer from "$components/Footer.svelte";
 	import CMS from "$components/helpers/CMS.svelte";
 	import Figure from "$components/Figure.svelte";
 	import Abridged from "$components/Abridged.svelte";
 	import Tldr from "$components/Tldr.svelte";
+	import Sticky from "$components/Sticky.svelte";
 	import Jukebox from "$components/Jukebox.svelte";
 	import Bit from "$components/Bit.svelte";
-	import lookupFigure from "$utils/lookupFigure.js";
 	import Image from "@lucide/svelte/icons/image";
 	import ScrollText from "@lucide/svelte/icons/scroll-text";
+	import lookupFigure from "$utils/lookupFigure.js";
+	import cleanBody from "$utils/cleanBody.js";
+	import cleanFigures from "$utils/cleanFigures.js";
 
 	const copy = getContext("copy");
 	const data = getContext("data");
@@ -22,68 +24,36 @@
 		Bit
 	};
 
-	const body = copy.body.map((d) => ({
-		section: d.section,
-		content: d.content.map((d) => ({
-			...d,
-			type:
-				d.type === "figure"
-					? "Figure"
-					: d.type === "abridged"
-						? "Abridged"
-						: d.type,
-			value:
-				d.type === "figure"
-					? lookupFigure(d.value, data.media, data.dimensions)
-					: d.type === "abridged"
-						? { text: d.value }
-						: d.value
-		}))
-	}));
+	const body = cleanBody(copy, data);
 
-	const tldrFigures = data.media
-		.map((d) => ({
-			type: "Figure",
-			value: lookupFigure(d.src, data.media, data.dimensions)
-		}))
-		.filter((d) => +d.value.tldr_order > 0);
-
-	tldrFigures.sort((a, b) =>
-		ascending(+a.value.tldr_order, +b.value.tldr_order)
-	);
-
-	const abridgedCopy = [
-		...copy.body.map((d) =>
-			d.content
-				.filter((d) => d.type === "abridged")
-				.map((d, i) => ({
-					type: "Abridged",
-					value: { text: d.value }
-				}))
-		)
-	].flat();
-
-	// insert abridged copy into tldr figures at intervals (find .day that matches of abridgeCopy index, and insert there)
-	abridgedCopy.forEach((d, i) => {
-		const dayIndex = tldrFigures.findIndex((f) => +f.value.day === i);
-		// insert abridged copy before dayIndex
-		if (dayIndex !== -1) {
-			tldrFigures.splice(dayIndex, 0, d);
-		} else {
-			// if no matching day, push to end
-			tldrFigures.push(d);
-		}
-	});
+	const figures = cleanFigures(copy, data);
 
 	let tldr = $state(false);
 	let container = $state(null);
 	let decided = $state(false);
 
+	let stepCounter = 0;
+	const sectionsConfig = body
+		.map(({ steps }) => {
+			if (steps && isNaN(+steps) === false) {
+				const end = stepCounter + +steps;
+				const o = { start: stepCounter, end };
+				stepCounter = end;
+				return o;
+			}
+			return null;
+		})
+		.filter((d) => d);
+
+	let scrollY = $state(0);
+	let sectionMetrics = $state([]);
+	let textEl = $state(null);
+
 	function onToggle(v) {
 		if (v !== undefined) {
 			if (!tldr && !v) {
 				setTimeout(() => {
-					const target = document.querySelector("#diary");
+					const target = document.querySelector("#journal");
 					if (target)
 						target.scrollIntoView({ block: "start", behavior: "smooth" });
 				}, 100);
@@ -97,7 +67,7 @@
 			if (tldr) window.scrollTo({ top: 0 });
 			else {
 				setTimeout(() => {
-					const target = document.querySelector("#diary");
+					const target = document.querySelector("#journal");
 					if (target) target.scrollIntoView({ block: "start" });
 				}, 100);
 			}
@@ -121,9 +91,39 @@
 			});
 		}
 	});
+
+	$effect(() => {
+		const calculateMetrics = () => {
+			if (textEl) {
+				const sections = [...document.querySelectorAll("#text .stepper")];
+
+				sectionMetrics = sections.map((el) => ({
+					top: el.offsetTop,
+					height: el.offsetHeight
+				}));
+			}
+		};
+
+		if (decided && !tldr) {
+			// Initial calculation when the effect first runs
+			calculateMetrics();
+
+			// Listen for window resize as well
+			window.addEventListener("resize", calculateMetrics);
+
+			// Cleanup: stop observing and remove listener when component is destroyed
+			return () => {
+				window.removeEventListener("resize", calculateMetrics);
+			};
+		}
+	});
+
+	$inspect(sectionMetrics);
 </script>
 
-<div id="text" class:visible={!tldr}>
+<svelte:window bind:scrollY />
+
+<div id="text" class:visible={!tldr} bind:this={textEl}>
 	<div id="intro">
 		<h1 class="sr-only">{copy.hed}</h1>
 		<p>{@html copy.intro.a}</p>
@@ -136,7 +136,7 @@
 				<button onclick={() => onToggle(false)}
 					><span class="icon"><ScrollText></ScrollText></span><span>TEXT</span>
 				</button>
-				<small>Visually-aided diary</small>
+				<small>Visually-aided journal</small>
 			</p>
 			<p>
 				<button onclick={() => onToggle(true)}
@@ -147,7 +147,7 @@
 		</div>
 	</div>
 
-	<div id="diary" class:visible={!tldr && decided}>
+	<div id="journal" class:visible={!tldr && decided}>
 		<div class="hero" id="hero">
 			<h1 class="sr-only">{copy.hed}</h1>
 			<Figure
@@ -160,7 +160,7 @@
 </div>
 
 <div id="tldr" class:visible={tldr} bind:this={container}>
-	<Tldr figures={tldrFigures} {components} />
+	<Tldr {figures} {components} />
 </div>
 
 <button class="fixed" class:visible={decided} onclick={() => onToggle()}
@@ -168,6 +168,8 @@
 		>{#if tldr}<ScrollText></ScrollText>{:else}<Image></Image>{/if}</span
 	>{tldr ? "TEXT" : "TLDR"}</button
 >
+
+<Sticky {sectionMetrics} {scrollY} {sectionsConfig}></Sticky>
 <svelte:boundary onerror={(e) => console.error(e)}>
 	<Footer recirc={true} />
 </svelte:boundary>
@@ -243,10 +245,11 @@
 	}
 
 	.decide p {
+		width: 50%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 0 1rem;
+		padding: 0;
 	}
 
 	#intro {
@@ -254,13 +257,13 @@
 		padding: 0 20px;
 	}
 
-	#diary {
+	#journal {
 		display: none;
 		max-width: 360px;
 		padding: 0 20px;
 	}
 
-	#diary.visible {
+	#journal.visible {
 		display: block;
 	}
 
