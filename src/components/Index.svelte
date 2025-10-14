@@ -117,8 +117,6 @@
 			};
 		}
 	});
-
-	$inspect(sectionMetrics);
 </script>
 
 <svelte:window bind:scrollY />
@@ -275,8 +273,8 @@
 
 	@media only screen and (min-width: 1020px) {
 		button.fixed {
-			top: 16px;
-			left: 16px;
+			top: 18px;
+			left: 18px;
 			right: auto;
 			bottom: auto;
 		}
