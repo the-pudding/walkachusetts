@@ -29,11 +29,11 @@
 	const figures = cleanFigures(copy, data);
 
 	let tldr = $state(false);
-	let container = $state(null);
+	let tldrEl = $state(null);
 	let decided = $state(false);
 
 	let stepCounter = 0;
-	const sectionsConfig = body
+	const sectionsConfigText = body
 		.map(({ steps }) => {
 			if (steps && isNaN(+steps) === false) {
 				const end = stepCounter + +steps;
@@ -45,8 +45,17 @@
 		})
 		.filter((d) => d);
 
+	const sectionsConfigTldr = [{ start: 0, end: 368000 }];
+
 	let scrollY = $state(0);
-	let sectionMetrics = $state([]);
+	let sectionMetricsText = $state([]);
+	let sectionMetricsTldr = $state([]);
+	let sectionMetrics = $derived(
+		tldr ? [...sectionMetricsTldr] : [...sectionMetricsText]
+	);
+	let sectionsConfig = $derived(
+		tldr ? [...sectionsConfigTldr] : [...sectionsConfigText]
+	);
 	let textEl = $state(null);
 
 	function onToggle(v) {
@@ -76,7 +85,7 @@
 
 	$effect(() => {
 		const els = document.querySelectorAll("#tldr a");
-		if (container && els.length) {
+		if (tldrEl && els.length) {
 			[...els].forEach((el) => {
 				el.addEventListener("click", (e) => {
 					e.stopPropagation();
@@ -93,11 +102,22 @@
 	});
 
 	$effect(() => {
-		const calculateMetrics = () => {
+		const calculateMetricsText = () => {
 			if (textEl) {
 				const sections = [...document.querySelectorAll("#text .stepper")];
 
-				sectionMetrics = sections.map((el) => ({
+				sectionMetricsText = sections.map((el) => ({
+					top: el.offsetTop,
+					height: el.offsetHeight
+				}));
+			}
+		};
+
+		const calculateMetricsTldr = () => {
+			if (tldrEl) {
+				const sections = [...document.querySelectorAll("#tldr .stepper")];
+
+				sectionMetricsTldr = sections.map((el) => ({
 					top: el.offsetTop,
 					height: el.offsetHeight
 				}));
@@ -106,14 +126,27 @@
 
 		if (decided && !tldr) {
 			// Initial calculation when the effect first runs
-			calculateMetrics();
+			calculateMetricsText();
 
 			// Listen for window resize as well
-			window.addEventListener("resize", calculateMetrics);
+			window.addEventListener("resize", calculateMetricsText);
 
 			// Cleanup: stop observing and remove listener when component is destroyed
 			return () => {
-				window.removeEventListener("resize", calculateMetrics);
+				window.removeEventListener("resize", calculateMetricsText);
+			};
+		}
+
+		if (decided && tldr) {
+			// Initial calculation when the effect first runs
+			calculateMetricsTldr();
+
+			// Listen for window resize as well
+			window.addEventListener("resize", calculateMetricsTldr);
+
+			// Cleanup: stop observing and remove listener when component is destroyed
+			return () => {
+				window.removeEventListener("resize", calculateMetricsTldr);
 			};
 		}
 	});
@@ -157,7 +190,7 @@
 	</div>
 </div>
 
-<div id="tldr" class:visible={tldr} bind:this={container}>
+<div id="tldr" class:visible={tldr} bind:this={tldrEl}>
 	<Tldr {figures} {components} />
 </div>
 
@@ -231,10 +264,7 @@
 	}
 
 	#tldr.visible {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: flex-start;
+		display: block;
 	}
 
 	.decide {
