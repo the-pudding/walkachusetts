@@ -14,14 +14,7 @@ export default function cleanFigures(copy, data) {
 	);
 
 	const abridgedCopy = [
-		...copy.body.map((d) =>
-			d.content
-				.filter((d) => d.type === "abridged")
-				.map((d, i) => ({
-					type: "Abridged",
-					value: { text: d.value }
-				}))
-		)
+		...copy.body.map((d) => d.content.filter((d) => d.type === "Abridged"))
 	].flat();
 
 	abridgedCopy.forEach((d, i) => {

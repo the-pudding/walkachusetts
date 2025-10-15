@@ -47,7 +47,6 @@
 	--1s: 1ms;
 	
 	--col-width: 720px;
-	--gap: 0.5rem;
 }
 
 /* dark theme */
@@ -112,37 +111,17 @@ span.strike {
 	text-decoration: line-through;
 }
 
-#text p.abridged {
+#text .abridged {
 	display: none;
 }
 
 #tldr {
 	background: var(--color-black);
-	padding: 0.5rem;
-	gap: var(--gap);
 }
 
 #tldr a {
 	color: var(--color-gray-300);
 	text-decoration-color: currentColor;
-}
-
-#tldr p.abridged, #tldr figure {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
-	width: 100% !important;
-	margin: 0 !important;
-	max-width: none !important;
-	padding: 0 !important;
-	font-family: var(--sans);
-	color: var(--color-bg);
-	font-size: var(--16px);
-}
-
-#tldr p.abridged {
-	padding: 1rem !important;
 }
 
 #tldr .abridged span {
@@ -406,39 +385,5 @@ aside.hide {
 
 	#journal figure.left.bottom {
 		transform: translate(calc(-100% - 60px), 0);
-	}
-}
-
-@media screen and (min-width: 480px) {
-	#tldr .f {
-		width: calc(50% - var(--gap));
-	}
-}
-
-@media screen and (min-width: 800px) {
-	#tldr .f {
-		width: calc(33.33% - var(--gap));
-	}
-}
-
-@media screen and (min-width: 900px) {
-	#tldr p.abridged {
-		font-size: 17px;
-	}
-}
-
-@media screen and (min-width: 120px) {
-	#tldr .f {
-		width: calc(25% - var(--gap));
-	}
-}
-
-@media screen and (min-width: 1600px) {
-	#tldr {
-		max-width: 1600px !important;
-		margin: 0 auto;
-	}
-	#tldr .f {
-		width: calc(20% - var(--gap));
 	}
 }

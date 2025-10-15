@@ -5,18 +5,11 @@ export default function (copy, data) {
 		...d,
 		content: d.content.map((d) => ({
 			...d,
-			type:
-				d.type === "figure"
-					? "Figure"
-					: d.type === "abridged"
-						? "Abridged"
-						: d.type,
+			type: d.type === "figure" ? "Figure" : d.type,
 			value:
 				d.type === "figure"
 					? lookupFigure(d.value, data.media, data.dimensions)
-					: d.type === "abridged"
-						? { text: d.value }
-						: d.value
+					: d.value
 		}))
 	}));
 }

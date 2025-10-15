@@ -200,7 +200,7 @@
 	>{tldr ? "TEXT" : "TLDR"}</button
 >
 
-<Sticky {sectionMetrics} {scrollY} {sectionsConfig}></Sticky>
+<Sticky {sectionMetrics} {scrollY} {sectionsConfig} {tldr}></Sticky>
 <svelte:boundary onerror={(e) => console.error(e)}>
 	<Footer recirc={true} />
 </svelte:boundary>

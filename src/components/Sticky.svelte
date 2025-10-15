@@ -1,7 +1,7 @@
 <script>
 	import { format } from "d3";
 	import route from "$svg/route.svg";
-	let { scrollY, sectionMetrics, sectionsConfig } = $props();
+	let { scrollY, sectionMetrics, sectionsConfig, tldr } = $props();
 
 	let routeEl = $state(null);
 
@@ -58,8 +58,6 @@
 		return pathLength - progress * pathLength;
 	});
 
-	// 3. EFFECT TO MEASURE THE PATH
-	// This runs once the SVG is rendered inside the component.
 	$effect(() => {
 		if (routeEl) {
 			const path = routeEl.querySelector("path");
@@ -68,7 +66,7 @@
 	});
 </script>
 
-<div id="sticky" class:visible>
+<div id="sticky" class:visible class:dark={tldr}>
 	<div
 		bind:this={routeEl}
 		class="route"
@@ -87,14 +85,20 @@
 	#sticky {
 		position: fixed;
 		top: 0;
-		right: 0;
+		left: 0;
 		z-index: calc(var(--z-overlay) - 1);
 		width: 100%;
-		background: var(--color-fg);
 		opacity: 0;
 		pointer-events: none;
 		transition: opacity 0.25s ease-in-out;
 		padding: 1rem;
+		background: var(--color-bg);
+		border-bottom: 2px solid var(--color-gray-100);
+	}
+
+	#sticky.dark {
+		background: var(--color-black);
+		border-bottom: 2px solid var(--color-fg);
 	}
 
 	#sticky.visible {
@@ -106,21 +110,33 @@
 		line-height: 1;
 		font-family: var(--sans);
 		font-variant-numeric: tabular-nums;
-		color: var(--color-gray-100);
+		color: var(--color-gray-600);
 		position: absolute;
-		top: 50%;
-		right: 16px;
-		transform: translateY(-50%);
+		bottom: 0;
+		right: 50%;
+		display: flex;
+		transform: translate(50%, 0);
+	}
+
+	.dark p {
+		color: var(--color-gray-300);
 	}
 
 	p span {
-		display: block;
+		display: inline-flex;
 		text-align: right;
+		padding: 8px;
+		font-size: 13px;
 	}
 
 	p span:nth-child(2) {
-		margin-top: 4px;
+		margin-left: 4px;
 		font-size: 13px;
+		color: var(--color-gray-600);
+		display: none;
+	}
+
+	.dark p span:nth-child(2) {
 		color: var(--color-gray-300);
 	}
 
@@ -134,24 +150,28 @@
 	.route:after {
 		display: block;
 		position: absolute;
-		color: var(--color-gray-300);
-		font-size: var(--12px);
+		color: var(--color-gray-600);
+		font-size: 11px;
 		font-family: var(--sans);
-		text-transform: uppercase;
+	}
+
+	.dark .route:before,
+	.dark .route:after {
+		color: var(--color-gray-300);
 	}
 
 	.route:before {
 		content: "Cambridge";
-		top: 0;
+		top: 25%;
 		right: 0;
-		transform: translate(calc(100% + 10px), 0);
+		/* transform: translate(calc(100% + 10px), 0); */
 	}
 
 	.route:after {
 		content: "Great Barrington";
-		top: 75%;
+		top: 40%;
 		left: 0;
-		transform: translate(calc(-100% - 10px), 0);
+		/* transform: translate(calc(-100% - 10px), 0); */
 	}
 
 	.route span {
@@ -173,16 +193,55 @@
 	}
 
 	:global(#sticky .bg svg path) {
-		stroke: var(--color-gray-600);
+		stroke: var(--color-gray-300);
 		stroke-width: 8px;
 		fill: none;
 	}
 
+	:global(#sticky.dark .bg svg path) {
+		stroke: var(--color-gray-600);
+	}
+
 	:global(#sticky .fg svg path) {
-		stroke: var(--color-gray-100);
+		stroke: var(--color-fg);
 		stroke-width: 16px;
 		fill: none;
 		stroke-dasharray: var(--path-length);
 		stroke-dashoffset: var(--path-offset);
+	}
+
+	:global(#sticky.dark .fg svg path) {
+		stroke: var(--color-gray-100);
+	}
+
+	@media only screen and (min-width: 1020px) {
+		p {
+			display: block;
+			top: 50%;
+			bottom: auto;
+			right: 16px;
+			transform: translateY(-50%);
+		}
+
+		p span {
+			display: block;
+			font-size: 16px;
+			padding: 0;
+		}
+
+		p span:nth-child(2) {
+			margin-left: 0;
+			margin-top: 4px;
+			display: block;
+		}
+
+		.route:before,
+		.route:after {
+			display: block;
+			position: absolute;
+			color: var(--color-gray-600);
+			font-size: var(--12px);
+			font-family: var(--sans);
+		}
 	}
 </style>

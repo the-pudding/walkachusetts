@@ -227,7 +227,7 @@ ol, ul {
 }
 
 .text-outline {
-	--stroke-width: 1px;
+	--stroke-width: 2px;
 	--stroke-width-n: calc(var(--stroke-width) * -1);
 	text-shadow: var(--stroke-width-n) var(--stroke-width-n) 0 var(--color-text-outline, #fff),
 		0 var(--stroke-width-n) 0 var(--color-text-outline, #fff),
