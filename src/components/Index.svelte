@@ -48,6 +48,8 @@
 	const sectionsConfigTldr = [{ start: 0, end: 368000 }];
 
 	let scrollY = $state(0);
+	let prevScrollTextY = $state(0);
+	let prevScrollTldrY = $state(0);
 	let sectionMetricsText = $state([]);
 	let sectionMetricsTldr = $state([]);
 	let sectionMetrics = $derived(
@@ -59,6 +61,10 @@
 	let textEl = $state(null);
 
 	function onToggle(v) {
+		const nextY = tldr ? prevScrollTextY : prevScrollTldrY;
+		if (tldr) prevScrollTldrY = scrollY;
+		else prevScrollTextY = scrollY;
+
 		if (v !== undefined) {
 			if (!tldr && !v) {
 				setTimeout(() => {
@@ -73,11 +79,13 @@
 		} else {
 			decided = true;
 			tldr = !tldr;
-			if (tldr) window.scrollTo({ top: 0 });
+			if (tldr) window.scrollTo({ top: nextY });
 			else {
 				setTimeout(() => {
 					const target = document.querySelector("#journal");
-					if (target) target.scrollIntoView({ block: "start" });
+					if (prevScrollTextY === 0 && target)
+						target.scrollIntoView({ block: "start" });
+					else window.scrollTo({ top: nextY });
 				}, 100);
 			}
 		}
