@@ -26,7 +26,7 @@
 </script>
 
 <ul>
-	{#each songs as { title, artist, file }, i}
+	{#each songs as { title, artist, file, link }, i}
 		{@const src = `assets/audio/${file}.mp3`}
 		<li>
 			<span class="w">
@@ -37,7 +37,7 @@
 					<span class="title">{title}</span>
 				</button>
 				<span class="artist">
-					{artist}
+					<a href={link} target="_blank" rel="noreferrer">{artist}</a>
 				</span>
 			</span>
 			<audio bind:this={audioEls[i]} {src}></audio>
@@ -69,5 +69,6 @@
 	.artist {
 		font-family: var(--sans);
 		font-size: 13px;
+		margin-top: 4px;
 	}
 </style>

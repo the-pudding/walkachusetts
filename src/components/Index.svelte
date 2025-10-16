@@ -169,8 +169,8 @@
 		<Figure {...lookupFigure("mobile/cast.png", data.media, data.dimensions)} />
 		<p>{@html copy.intro.b}</p>
 		<p>{@html copy.intro.c}</p>
-		<p>{@html copy.intro.d}</p>
-		<div class="decide">
+		<p class:hide={decided}>{@html copy.intro.d}</p>
+		<div class="decide" class:hide={decided}>
 			<p>
 				<button onclick={() => onToggle(false)}
 					><span class="icon"><ScrollText></ScrollText></span><span>TEXT</span>
@@ -306,7 +306,18 @@
 	.byline {
 		font-family: var(--sans);
 		font-size: 13px;
-		margin-top: -4rem;
+		margin-top: 0;
+		text-align: center;
+	}
+
+	p,
+	.decide {
+		transition: opacity 0.25s ease-in-out;
+	}
+
+	.hide {
+		opacity: 0;
+		pointer-events: none;
 	}
 
 	@media only screen and (min-width: 1020px) {
@@ -315,6 +326,10 @@
 			left: 18px;
 			right: auto;
 			bottom: auto;
+		}
+
+		.byline {
+			margin-top: -4rem;
 		}
 	}
 </style>

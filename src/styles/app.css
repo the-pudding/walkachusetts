@@ -103,7 +103,7 @@ button, a {
 
 p, h3, aside {
 	line-height: 1.75;
-	font-size: 16px;
+	font-size: 15px;
 }
 
 span.strike {
@@ -171,7 +171,7 @@ aside.hide {
 }
 
 #text section {
-	padding-top: 4rem !important;
+	padding-top: 3rem !important;
 }
 
 #text h2 {
@@ -211,7 +211,12 @@ aside.hide {
 	margin: 3rem auto;
 }
 
-@media screen and (min-width: 480px) {
+#method p {
+	font-size: var(--16px);
+	font-family: var(--sans);
+}
+
+@media screen and (min-width: 360px) {
 	p, h3 {
 		font-size: 17px;
 	}

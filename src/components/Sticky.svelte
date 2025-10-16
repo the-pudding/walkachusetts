@@ -164,14 +164,12 @@
 		content: "Cambridge";
 		top: 25%;
 		right: 0;
-		/* transform: translate(calc(100% + 10px), 0); */
 	}
 
 	.route:after {
 		content: "Great Barrington";
 		top: 40%;
 		left: 0;
-		/* transform: translate(calc(-100% - 10px), 0); */
 	}
 
 	.route span {
@@ -242,6 +240,15 @@
 			color: var(--color-gray-600);
 			font-size: var(--12px);
 			font-family: var(--sans);
+		}
+
+		.route:before {
+			top: 0%;
+			transform: translate(calc(100% + 10px), 0);
+		}
+		.route:after {
+			top: 65%;
+			transform: translate(calc(-100% - 10px), 0);
 		}
 	}
 </style>

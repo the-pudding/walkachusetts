@@ -14,6 +14,7 @@
 		cl,
 		i
 	} = $props();
+
 	const video = src.includes("video");
 	const illo =
 		src.includes("illos") || src.includes("mobile") || src.includes("features");
@@ -112,14 +113,14 @@
 		}
 
 		figure.feature {
+			top: var(--top, auto);
+			bottom: var(--bottom, auto);
 			position: relative;
 			left: 50%;
 			max-width: none !important;
 			width: 640px !important;
-			margin: 2em auto !important;
+			margin: 2rem auto !important;
 			transform: translate(-50%, 0);
-			top: var(--top, auto);
-			bottom: var(--bottom, auto);
 		}
 	}
 </style>
