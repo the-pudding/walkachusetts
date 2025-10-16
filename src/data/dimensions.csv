@@ -93,6 +93,7 @@ mobile-webp/war.webp,640,557
 images-webp/amherst-beaver.webp,640,851
 images-webp/amherst-pavedrailtrail.webp,640,851
 images-webp/beer.webp,640,853
+images-webp/belchertown-airmchair.webp,640,850
 images-webp/belchertown-bug.webp,640,853
 images-webp/belchertown-cat.webp,640,850
 images-webp/belchertown-pharoah.webp,640,851
@@ -120,6 +121,7 @@ images-webp/great-barrington-tunnel.webp,640,851
 images-webp/hadley-bridge.webp,640,851
 images-webp/hadley-cows.webp,640,850
 images-webp/hadley-hawk.webp,640,853
+images-webp/hardwick-bridge.webp,640,850
 images-webp/holden-house.webp,640,851
 images-webp/holden-motorcycle.webp,640,853
 images-webp/holden-pond.webp,640,851
@@ -133,10 +135,12 @@ images-webp/new-braintree-farmstand.webp,640,851
 images-webp/new-braintree-fog.webp,640,851
 images-webp/new-braintree-marks.webp,640,851
 images-webp/new-braintree-road.webp,640,853
+images-webp/new-braintree-vista.webp,640,850
 images-webp/new-braintree-water.webp,640,851
 images-webp/northampton-stick.webp,640,851
 images-webp/oakham-boggs.webp,640,849
 images-webp/oakham-honey.webp,640,850
+images-webp/oakham-postoffice.webp,640,851
 images-webp/otis-down.webp,640,853
 images-webp/otis-pond.webp,640,853
 images-webp/otis-skeleton.webp,640,851
@@ -153,6 +157,7 @@ images-webp/waltham-bridge.webp,640,851
 images-webp/waltham-office.webp,640,851
 images-webp/waltham-tubeman.webp,640,853
 images-webp/ware-clowns.webp,640,851
+images-webp/ware-street.webp,640,851
 images-webp/wayland-murals.webp,640,853
 images-webp/wayland-trail.webp,640,850
 images-webp/wayland-truck.webp,640,854
