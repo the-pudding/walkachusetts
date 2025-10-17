@@ -12,7 +12,8 @@
 		w,
 		h,
 		cl,
-		i
+		i,
+		lazy = "lazy"
 	} = $props();
 
 	const video = src.includes("video");
@@ -56,10 +57,14 @@
 			{onenter}
 			{onexit}
 		>
-			<source {src} type="video/mp4" />
+			<source {src} type="video/webm" />
+			<source
+				src={src.replace("-webm", "").replace(".webm", ".mp4")}
+				type="video/mp4"
+			/>
 		</video>
 	{:else}
-		<img {src} {alt} loading="lazy" width={w} height={h} />
+		<img {src} {alt} loading={lazy} width={w} height={h} />
 	{/if}
 	{#if !illo}
 		<img

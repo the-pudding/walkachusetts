@@ -166,7 +166,10 @@
 	<div id="intro">
 		<h1 class="sr-only">{copy.hed}</h1>
 		<p>{@html copy.intro.a}</p>
-		<Figure {...lookupFigure("mobile/cast.png", data.media, data.dimensions)} />
+		<Figure
+			{...lookupFigure("mobile/cast.png", data.media, data.dimensions)}
+			lazy={"eager"}
+		/>
 		<p>{@html copy.intro.b}</p>
 		<p>{@html copy.intro.c}</p>
 		<p class:hide={decided}>{@html copy.intro.d}</p>
@@ -191,6 +194,7 @@
 			<h1 class="sr-only">{copy.hed}</h1>
 			<Figure
 				{...lookupFigure("features/title.png", data.media, data.dimensions)}
+				lazy={"eager"}
 			/>
 			<p class="byline">{@html copy.byline}</p>
 		</div>
