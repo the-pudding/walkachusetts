@@ -127,6 +127,7 @@
 		text-align: right;
 		padding: 8px;
 		font-size: 13px;
+		font-weight: bold;
 	}
 
 	p span:nth-child(2) {
@@ -134,6 +135,7 @@
 		font-size: 13px;
 		color: var(--color-gray-600);
 		display: none;
+		font-weight: normal;
 	}
 
 	.dark p span:nth-child(2) {
