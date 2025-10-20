@@ -1,4 +1,5 @@
 <script>
+	import inView from "$actions/inView.js";
 	import Play from "@lucide/svelte/icons/play";
 	import Pause from "@lucide/svelte/icons/pause";
 	const { songs } = $props();
@@ -6,6 +7,8 @@
 	let audioEls = [];
 
 	let current = $state(null);
+
+	let visible = $state(false);
 
 	function onToggle(i) {
 		// if current is playing, pause it
@@ -25,7 +28,7 @@
 	}
 </script>
 
-<ul>
+<ul use:inView onenter={() => (visible = true)}>
 	{#each songs as { title, artist, file, link }, i}
 		{@const src = `assets/audio/${file}.mp3`}
 		<li>
@@ -40,7 +43,9 @@
 					<a href={link} target="_blank" rel="noreferrer">{artist}</a>
 				</span>
 			</span>
-			<audio bind:this={audioEls[i]} {src}></audio>
+			{#if visible}
+				<audio bind:this={audioEls[i]} {src}></audio>
+			{/if}
 		</li>
 	{/each}
 </ul>
