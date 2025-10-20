@@ -1,11 +1,6 @@
 function swap(s) {
-	// webm, webp
-	const ext = s.includes("mp4") ? "webm" : "webp";
-	return s
-		.replace("mp4", "webm")
-		.replace("jpg", "webp")
-		.replace("png", "webp")
-		.replace("/", `-${ext}/`);
+	if (s.includes("video")) return s;
+	return s.replace("jpg", "webp").replace("png", "webp").replace("/", `-webp/`);
 }
 
 export default function lookupFigure(src, media, dimensions) {

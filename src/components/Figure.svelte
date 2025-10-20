@@ -49,19 +49,13 @@
 			muted
 			playsinline
 			preload="metadata"
-			poster={src
-				.replace(".webm", ".webp")
-				.replace("videos-webm", "images-webp")}
+			poster={src.replace(".mp4", ".webp").replace("videos", "images-webp")}
 			bind:this={el}
 			use:inView
 			{onenter}
 			{onexit}
 		>
-			<source {src} type="video/webm" />
-			<source
-				src={src.replace("-webm", "").replace(".webm", ".mp4")}
-				type="video/mp4"
-			/>
+			<source {src} type="video/mp4" />
 		</video>
 	{:else}
 		<img {src} {alt} loading={lazy} width={w} height={h} />
