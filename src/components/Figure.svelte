@@ -48,7 +48,7 @@
 			loop
 			muted
 			playsinline
-			preload="metadata"
+			preload="none"
 			poster={src.replace(".mp4", ".webp").replace("videos", "images-webp")}
 			bind:this={el}
 			use:inView
